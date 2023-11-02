@@ -1,7 +1,7 @@
 # About
 
 <!--more-->
-## 關於作者
+## About the author
 - :pill::computer: After graduating from the Department of Biology, I unexpectedly switched to the information industry.
 - :triangular_flag_on_post: Determined to become a software engineer who can optimize architecture and develop independently.
 - :rocket: Focus on learning new technologies and implementing them to solve practical problems
