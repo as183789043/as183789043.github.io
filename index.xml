@@ -2,7 +2,7 @@
     <channel>
         <title>Rick&#39;s Web Site</title>
         <link>https://as183789043.github.io/</link>
-        <description>Hugo theme - LoveIt</description>
+        <description>A tech blog shares hands-on experiences in implementing Kubernetes (K8s), AI, big data, and full-stack development</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>rickhsu1999@gmail.com (Rick)</managingEditor>
             <webMaster>rickhsu1999@gmail.com (Rick)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
             <atom:link href="https://as183789043.github.io/index.xml" rel="self" type="application/rss+xml" />

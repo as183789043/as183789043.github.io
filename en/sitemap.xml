@@ -2,6 +2,19 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://as183789043.github.io/about/</loc><lastmod>2023-11-03T06:10:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://as183789043.github.io/zh-cn/about/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-tw"
+                        href="https://as183789043.github.io/zh-tw/about/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://as183789043.github.io/about/"
+                    /></url><url>
             <loc>https://as183789043.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
