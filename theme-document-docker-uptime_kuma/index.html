@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>Sharing good tools - Uptime-kuma - Rick&#39;s Web Site</title><meta name="Description" content="Quickly build website monitoring tools and alarm systems through Docker"><meta property="og:title" content="Sharing good tools - Uptime-kuma" />
+<meta property="og:description" content="Quickly build website monitoring tools and alarm systems through Docker" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://as183789043.github.io/theme-document-docker-uptime_kuma/" /><meta property="og:image" content="https://as183789043.github.io/images/Uptime_kuma_Logo.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-12T01:44:54+08:00" />
+<meta property="article:modified_time" content="2023-11-12T01:44:54+08:00" /><meta property="og:site_name" content="LoveIt" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://as183789043.github.io/images/Uptime_kuma_Logo.jpg"/>
+
+<meta name="twitter:title" content="Sharing good tools - Uptime-kuma"/>
+<meta name="twitter:description" content="Quickly build website monitoring tools and alarm systems through Docker"/>
+<meta name="application-name" content="Rick&#39;s Web Site">
+<meta name="apple-mobile-web-app-title" content="Rick&#39;s Web Site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://as183789043.github.io/theme-document-docker-uptime_kuma/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Sharing good tools - Uptime-kuma",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/as183789043.github.io\/theme-document-docker-uptime_kuma\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/as183789043.github.io\/images\/Uptime_kuma_Logo.jpg",
+                            "width":  1024 ,
+                            "height":  641 
+                        }],"genre": "posts","keywords": "Docker, Line, System","wordcount":  626 ,
+        "url": "https:\/\/as183789043.github.io\/theme-document-docker-uptime_kuma\/","datePublished": "2023-11-12T01:44:54+08:00","dateModified": "2023-11-12T01:44:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "RickHsu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/as183789043.github.io\/images\/avatar.png",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "Rick"
+            },"description": "Quickly build website monitoring tools and alarm systems through Docker"
+    }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        
+        gtag('config', 'G-RZF9PR9XQG');
+    </script>
+</head>
+
+<body data-header-desktop="fixed"
+    data-header-mobile="auto"><script
+        type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/theme-document-docker-uptime_kuma/" selected>English</option><option value="/zh-cn/theme-document-docker-uptime_kuma/">简体中文</option><option value="/zh-tw/theme-document-docker-uptime_kuma/">繁体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/theme-document-docker-uptime_kuma/" selected>English</option><option value="/zh-cn/theme-document-docker-uptime_kuma/">简体中文</option><option value="/zh-tw/theme-document-docker-uptime_kuma/">繁体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Sharing good tools - Uptime-kuma</h1><h2 class="single-subtitle">Quickly build website monitoring tools and alarm systems</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Rick</a></span>&nbsp;<span class="post-category">included in <a href="/categories/system/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-12">2023-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;626 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Uptime_kuma_Logo.jpg"
+        data-srcset="/images/Uptime_kuma_Logo.jpg, /images/Uptime_kuma_Logo.jpg 1.5x, /images/Uptime_kuma_Logo.jpg 2x"
+        data-sizes="auto"
+        alt="/images/Uptime_kuma_Logo.jpg"
+        title="Quickly build website monitoring tools and alarm systems through Docker" width="1024" height="641" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-you-need-website-monitoring-tools-br">Why you need website monitoring tools <br></a></li>
+    <li><a href="#uptime-kuma-installation">Uptime-kuma installation</a>
+      <ul>
+        <li><a href="#connection-ui-interface">Connection UI interface</a></li>
+      </ul>
+    </li>
+    <li><a href="#ui-settings">UI settings</a></li>
+    <li><a href="#alarm-system-line-notify-settings">Alarm system Line Notify settings</a></li>
+    <li><a href="#simulation-monitoring-failure-example">Simulation monitoring failure example</a></li>
+    <li><a href="#result">result</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="why-you-need-website-monitoring-tools-br">Why you need website monitoring tools <br></h2>
+<p>In a general environment where a website is deployed, the most important thing is to know whether the services provided by the website are down or whether the certificate has expired.</p>
+<p>In the past, these things were monitored by writing scripts or programs, which was extremely troublesome for users without technical background. Especially after the monitoring is written, it also needs to be notified when something goes wrong, which undoubtedly makes reasonable monitoring more troublesome.</p>
+  <br>
+<p>Adhering to the idea that for complicated things, you should first find ready-made tools online instead of relying on yourself. So there is today’s protagonist Uptime-kuma</p>
+<br>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>If you want to experience the online interface and perform basic settings before installation, you can refer to the link below.</p>
+<p><a href="https://demo.uptime.kuma.pet" target="_blank" rel="noopener noreffer ">Demo website link 10 minutes available version</a></p>
+</div>
+        </div>
+    </div>
+<br>
+Then let’s start installing it in our own environment to experience the effect of unlimited use.
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Pre-installation requirements<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>An environment with Docker is required (installation method is as follows)
+<ul>
+<li>Windows
+<ol>
+<li>Run PowerShell or Windows Command Prompt as administrator to install WSL and then restart your computer</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Powershell" data-lang="Powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Download Docker Desktop
+<br></li>
+</ol>
+</li>
+<li>Ubuntu copy and paste in Terminal
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>ca-certificates<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>curl <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>gnupg<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>lsb-release
+</span></span><span class="line"><span class="cl">sudo mkdir -m <span class="m">0755</span> -p /etc/apt/keyrings
+</span></span><span class="line"><span class="cl">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">&#34;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+</span></span><span class="line"><span class="cl">sudo gpasswd -a <span class="nv">$USER</span> docker
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="uptime-kuma-installation">Uptime-kuma installation</h2>
+<p>Enter Power Shell/Terminal and enter the following command</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl">docker run -d --restart<span class="o">=</span>always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Instruction note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<ul>
+<li>-d will make the container run in the background</li>
+<li>-restart starts docker and automatically starts monitoring</li>
+<li>-p The internal network port corresponds to the external (host) port number</li>
+<li>-v data storage location Add uptime-kuma folder to the current directory of the machine to synchronize the app/data directory of the container</li>
+</ul>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="connection-ui-interface">Connection UI interface</h3>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>Open browser input <i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>If you want to experience the online interface and perform basic settings before installation, you can refer to the link below.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://localhost:3001
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If Ubuntu does not have a desktop installed, you can refer to the following methods</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   ufw allow <span class="m">3001</span> <span class="c1">#Open external firewall</span>
+</span></span><span class="line"><span class="cl">   ip -a <span class="c1">#Find the IP of the current host and then use an external connection to enter</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="ui-settings">UI settings</h2>
+<p>Entering the UI requires setting an account and password.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./setting.png"
+        data-srcset="./setting.png, ./setting.png 1.5x, ./setting.png 2x"
+        data-sizes="auto"
+        alt="./setting.png"
+        title="UI" /></p>
+<p>Start with the simplest web page monitoring
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./monitor.png"
+        data-srcset="./monitor.png, ./monitor.png 1.5x, ./monitor.png 2x"
+        data-sizes="auto"
+        alt="./monitor.png"
+        title="monitor" />
+Enter the URL to be monitored</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./monitor_setting.png"
+        data-srcset="./monitor_setting.png, ./monitor_setting.png 1.5x, ./monitor_setting.png 2x"
+        data-sizes="auto"
+        alt="./monitor_setting.png"
+        title="monitor_setting" />
+If you have advanced needs, you can also check the box to check the remaining days of the voucher.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./ssl_check.png"
+        data-srcset="./ssl_check.png, ./ssl_check.png 1.5x, ./ssl_check.png 2x"
+        data-sizes="auto"
+        alt="./ssl_check.png"
+        title="ssl_check" /></p>
+<h2 id="alarm-system-line-notify-settings">Alarm system Line Notify settings</h2>
+<p>Can set more than one notification
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./notify.png"
+        data-srcset="./notify.png, ./notify.png 1.5x, ./notify.png 2x"
+        data-sizes="auto"
+        alt="./notify.png"
+        title="notify" />
+When you see that a token is required and there are instructions below on how to get it, click on the URL in the red box below.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./token.png"
+        data-srcset="./token.png, ./token.png 1.5x, ./token.png 2x"
+        data-sizes="auto"
+        alt="./token.png"
+        title="token" />
+Click on the upper right corner
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./line_login.png"
+        data-srcset="./line_login.png, ./line_login.png 1.5x, ./line_login.png 2x"
+        data-sizes="auto"
+        alt="./line_login.png"
+        title="line_login" />
+You can choose to log in with an account or qrcode
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./line_login_2.png"
+        data-srcset="./line_login_2.png, ./line_login_2.png 1.5x, ./line_login_2.png 2x"
+        data-sizes="auto"
+        alt="./line_login_2.png"
+        title="line_login_2" />
+You can choose how notification is sent. It can be directed to individuals or in groups. Test first to see the effect on 1-on-1 basis.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./publish_token.png"
+        data-srcset="./publish_token.png, ./publish_token.png 1.5x, ./publish_token.png 2x"
+        data-sizes="auto"
+        alt="./publish_token.png"
+        title="publish_token" /></p>
+<p>After logging in, scroll to the bottom and click Issue Token
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./publish.png"
+        data-srcset="./publish.png, ./publish.png 1.5x, ./publish.png 2x"
+        data-sizes="auto"
+        alt="./publish.png"
+        title="publish" />
+Just get the token and fill it back into the web page
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./copy_token.png"
+        data-srcset="./copy_token.png, ./copy_token.png 1.5x, ./copy_token.png 2x"
+        data-sizes="auto"
+        alt="./copy_token.png"
+        title="copy_token" /></p>
+<h2 id="simulation-monitoring-failure-example">Simulation monitoring failure example</h2>
+<p>The configuration file of Ping is as follows. The type of ping and simulation of a non-existent URL are combined with notification settings.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./fail.png"
+        data-srcset="./fail.png, ./fail.png 1.5x, ./fail.png 2x"
+        data-sizes="auto"
+        alt="./fail.png"
+        title="fail" /></p>
+<h2 id="result">result</h2>
+<p>It can be seen that the website&rsquo;s response time is 0.2 seconds on average, the response rate is normal and the certificate expires in 58 days.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./result1.png"
+        data-srcset="./result1.png, ./result1.png 1.5x, ./result1.png 2x"
+        data-sizes="auto"
+        alt="./result1.png"
+        title="result1" /></p>
+<p>If it fails, a message will be sent
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./notify.jpeg"
+        data-srcset="./notify.jpeg, ./notify.jpeg 1.5x, ./notify.jpeg 2x"
+        data-sizes="auto"
+        alt="./notify.jpeg"
+        title="notify_error" /></p>
+<h2 id="references">References</h2>
+<p><a href="https://github.com/louislam/uptime-kuma" target="_blank" rel="noopener noreffer ">Official Github</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-11-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/theme-document-docker-uptime_kuma/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://as183789043.github.io/theme-document-docker-uptime_kuma/" data-title="Sharing good tools - Uptime-kuma" data-hashtags="Docker,Line,System"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://as183789043.github.io/theme-document-docker-uptime_kuma/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://as183789043.github.io/theme-document-docker-uptime_kuma/" data-title="Sharing good tools - Uptime-kuma"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://as183789043.github.io/theme-document-docker-uptime_kuma/" data-title="Sharing good tools - Uptime-kuma"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://as183789043.github.io/theme-document-docker-uptime_kuma/" data-title="Sharing good tools - Uptime-kuma" data-image="./images/Uptime_kuma_Logo.jpg"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">Docker</a>,&nbsp;<a href="/tags/line/">Line</a>,&nbsp;<a href="/tags/system/">System</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"></div>
+        </div>
+    </footer></div>
+
+    <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+            <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+            <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+        </a>
+    </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script type="text/javascript" src="https://comment-taiwan.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"search":{"algoliaAppID":"3990F4O1T5","algoliaIndex":"index.en","algoliaSearchKey":"f3d11d4be2386305b9bbab78ba0e4d53","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-RZF9PR9XQG');
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG" async></script></body>
+
+</html>
