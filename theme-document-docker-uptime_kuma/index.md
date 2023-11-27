@@ -3,7 +3,7 @@
 
 <!--more-->
 
-## Why you need website monitoring tools <br>
+## Why you need website monitoring tools 
 
 In a general environment where a website is deployed, the most important thing is to know whether the services provided by the website are down or whether the certificate has expired.
 
