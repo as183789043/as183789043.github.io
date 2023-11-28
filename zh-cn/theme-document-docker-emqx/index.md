@@ -42,7 +42,7 @@
 - [MQTTX](https://mqttx.app/) 
   
 {{< admonition info>}}
-如果缺少Docker环境可以看这篇[私有环境网站监控系统建置- Uptime-kuma](http://localhost:1313/zh-tw/theme-document-docker-uptime_kuma/#%E7%82%BA% E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81%E7%B6%B2%E7%AB%99%E7%9B%A3%E6%8E%A7%E5% B7%A5%E5%85%B7)中的安装前置需求!!
+如果缺少Docker环境可以看这篇[私有环境网站监控系统建置- Uptime-kuma](https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7)中的安装前置需求!!
 {{< /admonition  >}}
 
 

@@ -17,7 +17,7 @@ From the picture, we can see that there is a place similar to the MQTT brain in 
 
 From the picture, you can see that there are some path-like things where each project is connected. This is the so-called topic. Only when publishing and subscribing to the same topic can one receive messages. <br>
 
-If you want to obtain multiple topics, you can set <b>#</b> in the path to read multiple topics, but please note that <b>/</b> represents layering and there is no <b>/ at the beginning of the first layer. </b>
+If you want to obtain multiple topics, you can set <b>#</b> in the path to read multiple topics, but please note that <b>/</b> represents layering and there is no <b>/</b> at the beginning of the first layer. 
 {{< /admonition >}}
 
 ## Differences from similar product Mosquito
@@ -38,11 +38,11 @@ But in comparison, there are several reasons why I think using EMQX is a good ch
 ## before the start
 
 Before officially entering our topic today, you will need to use the following two tools to demonstrate
--Docker
+- Docker
 - [MQTTX](https://mqttx.app/)
   
 {{<admonition info>}}
-If you lack a Docker environment, you can read this article [Private environment website monitoring system construction-Uptime-kuma](http://localhost:1313/zh-tw/theme-document-docker-uptime_kuma/#%E7%82%BA% E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81%E7%B6%B2%E7%AB%99%E7%9B%A3%E6%8E%A7%E5% Pre-installation requirements in B7%A5%E5%85%B7)!!
+If you lack a Docker environment, you can read this article [Private environment website monitoring system construction-Uptime-kuma](https://as183789043.github.io/theme-document-docker-uptime_kuma/#why-you-need-website-monitoring-tools)!!
 {{< /admonition >}}
 
 
