@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>MQTT Broker 性能監控最佳佈建方案 - EMQX(二) - Rick&#39;s Web Site</title><meta name="Description" content="Docker"><meta property="og:title" content="MQTT Broker 性能監控最佳佈建方案 - EMQX(二)" />
+<meta property="og:description" content="Docker" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" /><meta property="og:image" content="https://as183789043.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-12T19:19:33+08:00" />
+<meta property="article:modified_time" content="2023-12-12T19:19:33+08:00" /><meta property="og:site_name" content="Rick&#39;s web site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://as183789043.github.io/logo.png"/>
+
+<meta name="twitter:title" content="MQTT Broker 性能監控最佳佈建方案 - EMQX(二)"/>
+<meta name="twitter:description" content="Docker"/>
+<meta name="application-name" content="Rick&#39;s Web Site">
+<meta name="apple-mobile-web-app-title" content="Rick&#39;s Web Site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" /><link rel="prev" href="https://as183789043.github.io/zh-tw/theme-document-docker-emqx/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MQTT Broker 性能監控最佳佈建方案 - EMQX(二)",
+        "inLanguage": "zh-TW",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/as183789043.github.io\/zh-tw\/theme-document-docker-conpose-emqx_monitor\/"
+        },"image": ["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Docker, System","wordcount":  1529 ,
+        "url": "https:\/\/as183789043.github.io\/zh-tw\/theme-document-docker-conpose-emqx_monitor\/","datePublished": "2023-12-12T19:19:33+08:00","dateModified": "2023-12-12T19:19:33+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "RickHsu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/as183789043.github.io\/images\/avatar.png",
+                    "width":  256 ,
+                    "height":  256 
+                }},"author": {
+                "@type": "Person",
+                "name": "Rick"
+            },"description": "Docker"
+    }
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RZF9PR9XQG');
+    </script>
+    
+    
+</head>
+
+<body data-header-desktop="fixed"
+    data-header-mobile="auto"><script
+        type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-tw/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-tw/posts/"> 所有文章 </a><a class="menu-item" href="/zh-tw/tags/"> 標籤 </a><a class="menu-item" href="/zh-tw/categories/"> 分類 </a><a class="menu-item" href="/zh-tw/about/"> 關於 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章標題或內容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切換主題">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="選擇語言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/theme-document-docker-conpose-emqx_monitor/">English</option><option value="/zh-cn/theme-document-docker-conpose-emqx_monitor/">简体中文</option><option value="/zh-tw/theme-document-docker-conpose-emqx_monitor/" selected>繁体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-tw/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章標題或內容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-tw/posts/" title="">所有文章</a><a class="menu-item" href="/zh-tw/tags/" title="">標籤</a><a class="menu-item" href="/zh-tw/categories/" title="">分類</a><a class="menu-item" href="/zh-tw/about/" title="">關於</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切換主題">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="選擇語言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/theme-document-docker-conpose-emqx_monitor/">English</option><option value="/zh-cn/theme-document-docker-conpose-emqx_monitor/">简体中文</option><option value="/zh-tw/theme-document-docker-conpose-emqx_monitor/" selected>繁体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目錄</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MQTT Broker 性能監控最佳佈建方案 - EMQX(二)</h1><h2 class="single-subtitle">Docker compose 一鍵部署完整監控系統組件</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-tw/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Rick</a></span>&nbsp;<span class="post-category">收錄於 <a href="/zh-tw/categories/system/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-12">2023-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;約 1529 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;預計閱讀 4 分鐘&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/emqx2.png"
+        data-srcset="/images/emqx2.png, /images/emqx2.png 1.5x, /images/emqx2.png 2x"
+        data-sizes="auto"
+        alt="/images/emqx2.png"
+        title="Docker" width="1520" height="684" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目錄</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#開始之前">開始之前</a></li>
+    <li><a href="#前置步驟">前置步驟</a></li>
+    <li><a href="#檔案內容說明">檔案內容說明</a></li>
+    <li><a href="#資料串接設定">資料串接設定</a>
+      <ul>
+        <li><a href="#重要組件連線資訊-第一次登入要修改密碼">重要組件連線資訊 <strong>第一次登入要修改密碼</strong></a></li>
+        <li><a href="#emqx推送資訊設定">EMQX推送資訊設定</a></li>
+        <li><a href="#grafana-設定資料來源">Grafana 設定資料來源</a></li>
+        <li><a href="#匯入模板">匯入模板</a></li>
+      </ul>
+    </li>
+    <li><a href="#最後結果">最後結果</a></li>
+    <li><a href="#結語">結語</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">在開始閱讀本文前 建議先瀏覽前篇文章 <a href="https://as183789043.github.io/theme-document-docker-emqx/" target="_blank" rel="noopener noreffer ">高性能物聯網MQTT Broker - EMQX</a> 了解EMQX相關資訊</div>
+        </div>
+    </div>
+<p>成功建立EMQX來作為MQTT的大腦之後 ，對於Server是否能承受相應的資源消耗是一個難以估量的場景，而透過監控性能上的變化，再由一個能及時反饋當前狀況的圖表。 相信能夠讓我們更進一步的去應對接下來會預期到的風險。</p>
+<p>但僅僅是如此還不能達到像標題描述的那麼厲害，我們需要一個有別於過去一個個組件安裝完成再進行資料串接的安裝方式。 <del><del>讓自己可以更早下班😂</del></del></p>
+<p>而這就會提到今天的主角 <strong>Docker compose !!</strong> ，比Docker再更進階一些，但是可以一次部署多個Docker來達到一鍵啟動所有組件</p>
+<h2 id="開始之前">開始之前</h2>
+<p>在正式進入我們今日主題之前，會需要準備的工具如下</p>
+<ul>
+<li>Virtual Machine (Centos,Ubuntu)</li>
+<li>Docker</li>
+<li>Docker Compose</li>
+<li>git</li>
+</ul>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>Docker安裝可以參照<a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener noreffer ">官方連結</a>選擇合適的作業系統</li>
+<li>git 安裝
+<ol>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install git   <span class="c1">#Ubuntu</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo yum install git   <span class="c1">#Centos</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h2 id="前置步驟">前置步驟</h2>
+<ol>
+<li>
+<p>透過Git抓取本次檔案 並進入該資料夾</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/as183789043/EMQX-Single_Node_Monitor.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> EMQX-Single_Node_Monitor
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>新增檔案並修改權限 (理論上Docker compsoe 可以自己建立，但筆者實作時會有權限問題，故改為手動建立)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir emqx1_data
+</span></span><span class="line"><span class="cl">chmod <span class="m">777</span> emqx1_data
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>啟動檔案</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker compose up -d
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>到這裡就成功將所有監控組件啟動了，我們進入下一階段</p>
+<h2 id="檔案內容說明">檔案內容說明</h2>
+<p>對於拉取下來的檔案具體做了哪些事情，以及程式碼的細部講解都會在這個章節進行說明</p>
+<ol>
+<li>
+<p>docker-compose.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">emqx1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">emqx:5.3.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">emqx1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CMD&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;/opt/emqx/bin/emqx ctl&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;status&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">60s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">1883</span><span class="p">:</span><span class="m">1883</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8083</span><span class="p">:</span><span class="m">8083</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8084</span><span class="p">:</span><span class="m">8084</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8883</span><span class="p">:</span><span class="m">8883</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">18083</span><span class="p">:</span><span class="m">18083</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./emqx1_data/:/opt/emqx/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">aliases</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">node1.emqx.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./prometheus.yaml:/etc/prometheus/prometheus.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span>--<span class="l">config.file=/etc/prometheus/prometheus.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">9090</span><span class="p">:</span><span class="m">9090</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pushgateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/pushgateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">pushgateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">9091</span><span class="p">:</span><span class="m">9091</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">node-exporter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/node-exporter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">node-exporter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">9100</span><span class="p">:</span><span class="m">9100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">grafana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/grafana-oss</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3000</span><span class="p">:</span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>docker-compose.yaml 說明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><pre><code> version  : '3' 是目前docker compose的固定版本 可根據官網發布進行調整  
+ services : 底下是各個組件的服務名稱(emqx1、prometheus) 
+ container_name : 在虛擬機上的容器識別名稱
+ ports    : 前者是外部連線port 後者是內部port
+ volumes  : 外部文件掛載到容器的位置 
+ networks : 使用的網卡，同一張容器才會互通 
+ command  : 指定容器的啟動命令
+ networks &gt; emqx-bridge &gt; driver : 定義網卡名為emqx-bridge 使用橋接模式
+</code></pre>
+</div>
+        </div>
+    </div>
+</li>
+<li>
+<p>prometheus.yaml  -&gt; 透過EMQX網頁生成。Targets在同一張網卡可以直接寫&lt;容器名稱:port&gt;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">global</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w">     </span><span class="l">15s</span><span class="w"> </span><span class="c"># The default scrape interval is every 10 seconds.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w"> </span><span class="c"># The default evaluation interval is every 10 seconds.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c"># On this machine, every time series will be exported by default.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">external_labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">monitor</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;emqx-monitor&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># Load rules once and periodically evaluate them according to the global &#39;evaluation_interval&#39;.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">rule_files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c"># - &#34;first.rules&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c"># - &#34;second.rules&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span>- <span class="s2">&#34;/etc/prometheus/rules/*.rules&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># Data pull configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;node-exporter&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c"># node-exporter IP address and port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;node-exporter:9100&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="nt">instance</span><span class="p">:</span><span class="w"> </span><span class="l">dashboard-local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c"># EMQX Pushgateway monitoring</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;pushgateway&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">honor_labels</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c"># Pushgateway IP address and port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;pushgateway:9091&#39;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>dashboard.json -&gt;作為 Garfana儀錶板之模板設定檔</p>
+</li>
+</ol>
+<h2 id="資料串接設定">資料串接設定</h2>
+<h3 id="重要組件連線資訊-第一次登入要修改密碼">重要組件連線資訊 <strong>第一次登入要修改密碼</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Service</th>
+<th style="text-align:left">Port</th>
+<th style="text-align:left">Username</th>
+<th style="text-align:left">Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Grafana</td>
+<td style="text-align:left">3000</td>
+<td style="text-align:left">admin</td>
+<td style="text-align:left">public</td>
+</tr>
+<tr>
+<td style="text-align:left">EMQX</td>
+<td style="text-align:left">18083</td>
+<td style="text-align:left">admin</td>
+<td style="text-align:left">admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="emqx推送資訊設定">EMQX推送資訊設定</h3>
+<p>注意!!Pushgateay要輸入 &lt;容器名稱:port&gt;才能正確傳輸資料
+如果要生成自己的prometheus可以點選<strong>幫助</strong>來產生
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./pushgateway.png"
+        data-srcset="./pushgateway.png, ./pushgateway.png 1.5x, ./pushgateway.png 2x"
+        data-sizes="auto"
+        alt="./pushgateway.png"
+        title="pushgateway" /></p>
+<h3 id="grafana-設定資料來源">Grafana 設定資料來源</h3>
+<p>上一步驟將EMQX資料推至Prometheus。那麼在Grafana就要相應的將Prometheus設置為來源
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./add_datasource.png"
+        data-srcset="./add_datasource.png, ./add_datasource.png 1.5x, ./add_datasource.png 2x"
+        data-sizes="auto"
+        alt="./add_datasource.png"
+        title="add_datasource" /></p>
+<p>選擇Prometheus後輸入輸入連線位置
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./connect.png"
+        data-srcset="./connect.png, ./connect.png 1.5x, ./connect.png 2x"
+        data-sizes="auto"
+        alt="./connect.png"
+        title="connect" /></p>
+<p>其他保持預設 點選Save&amp;test有<strong>綠色</strong>提示代表來源連接成功
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./successful.png"
+        data-srcset="./successful.png, ./successful.png 1.5x, ./successful.png 2x"
+        data-sizes="auto"
+        alt="./successful.png"
+        title="successful.png" /></p>
+<h3 id="匯入模板">匯入模板</h3>
+<p>依照以下路徑點選至匯入儀表板介面
+Home &gt; Dashboards &gt;New  &gt; Import dashboard</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./import.png"
+        data-srcset="./import.png, ./import.png 1.5x, ./import.png 2x"
+        data-sizes="auto"
+        alt="./import.png"
+        title="import" /></p>
+<p>確定名稱及所屬Grafana路徑後點選 <strong>import</strong>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./load_dash.png"
+        data-srcset="./load_dash.png, ./load_dash.png 1.5x, ./load_dash.png 2x"
+        data-sizes="auto"
+        alt="./load_dash.png"
+        title="load_dash" /></p>
+<h2 id="最後結果">最後結果</h2>
+<p>匯入模板成功，就會看到一個類似下圖的儀表板</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./final1.png"
+        data-srcset="./final1.png, ./final1.png 1.5x, ./final1.png 2x"
+        data-sizes="auto"
+        alt="./final1.png"
+        title="final1" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./final2.png"
+        data-srcset="./final2.png, ./final2.png 1.5x, ./final2.png 2x"
+        data-sizes="auto"
+        alt="./final2.png"
+        title="final2" /></p>
+<h2 id="結語">結語</h2>
+<p>雖然是快速部署，但在前期準備docker-compose.yaml會需要一些基礎知識，才能夠將容器進行完整打包。這部分筆者也是一邊試錯，一邊打包。
+但相對的，未來在其他環境需要重現這樣的架構。就可以輕鬆的還原。節省未來花費的時間</p>
+<p>另外是本篇文章著重架設監控系統，但Grafana還可以針對特定數值異常時發出警告。相關設定就留給各位去探索囉~~ 下課!!</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新於 2023-12-12</span>
+            </div><div class="post-info-license">
+                <span>Docker compose 一鍵部署完整監控系統組件</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-tw/theme-document-docker-conpose-emqx_monitor/index.md" target="_blank">閱讀原始文檔</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" data-title="MQTT Broker 性能監控最佳佈建方案 - EMQX(二)" data-hashtags="Docker,System"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" data-title="MQTT Broker 性能監控最佳佈建方案 - EMQX(二)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" data-title="MQTT Broker 性能監控最佳佈建方案 - EMQX(二)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://as183789043.github.io/zh-tw/theme-document-docker-conpose-emqx_monitor/" data-title="MQTT Broker 性能監控最佳佈建方案 - EMQX(二)" data-image="./images/emqx2.png"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/zh-tw/tags/docker/">Docker</a>,&nbsp;<a href="/zh-tw/tags/system/">System</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-tw/">主頁</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-tw/theme-document-docker-emqx/" class="prev" rel="prev" title="高性能物聯網MQTT Broker - EMQX"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>高性能物聯網MQTT Broker - EMQX</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"></div>
+        </div>
+    </footer></div>
+
+    <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到頂部">
+            <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看評論">
+            <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+        </a>
+    </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script type="text/javascript" src="https://comment-taiwan.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"複製到剪貼板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本網站使用 Cookies 來改善您的瀏覽體驗."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"search":{"algoliaAppID":"3990F4O1T5","algoliaIndex":"index.zh-tw","algoliaSearchKey":"f3d11d4be2386305b9bbab78ba0e4d53","highlightTag":"em","maxResultLength":10,"noResultsFound":"沒有找到結果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-RZF9PR9XQG');
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG" async></script></body>
+
+</html>

@@ -33,7 +33,7 @@
 後續設定中看到有 *PAID* 都是需要升級才能享有的權益
 {{< /admonition  >}} 
 
-信箱跳轉到首頁UptimeRobot首頁 可以看到有手機版可以下載(~~~不用隨時隨地都帶著電腦了XD~~~) 接著點選+Add New Monitor 
+信箱跳轉到首頁UptimeRobot首頁 可以看到有手機版可以下載(~~~不用隨時隨地都帶著電腦了😂~~~) 接著點選+Add New Monitor 
 ![首頁](./first-page.jpg) 
 
 選擇監控類型

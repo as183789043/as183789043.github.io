@@ -4,9 +4,19 @@
         <link>https://as183789043.github.io/zh-cn/</link>
         <description>A tech blog shares hands-on experiences in implementing Kubernetes (K8s), AI, big data, and full-stack development</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>rickhsu1999@gmail.com (Rick)</managingEditor>
-            <webMaster>rickhsu1999@gmail.com (Rick)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 27 Nov 2023 18:06:53 &#43;0800</lastBuildDate>
+            <webMaster>rickhsu1999@gmail.com (Rick)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 12 Dec 2023 19:19:33 &#43;0800</lastBuildDate>
             <atom:link href="https://as183789043.github.io/zh-cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>MQTT Broker 性能监控最佳布建方案 - EMQX(二)</title>
+    <link>https://as183789043.github.io/zh-cn/theme-document-docker-conpose-emqx_monitor/</link>
+    <pubDate>Tue, 12 Dec 2023 19:19:33 &#43;0800</pubDate>
+    <author>Rick</author>
+    <guid>https://as183789043.github.io/zh-cn/theme-document-docker-conpose-emqx_monitor/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/emqx2.png" referrerpolicy="no-referrer">
+            </div>Docker]]></description>
+</item>
+<item>
     <title>高性能物联网MQTT Broker - EMQX</title>
     <link>https://as183789043.github.io/zh-cn/theme-document-docker-emqx/</link>
     <pubDate>Mon, 27 Nov 2023 18:06:53 &#43;0800</pubDate>

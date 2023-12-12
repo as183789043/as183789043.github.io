@@ -33,7 +33,7 @@ Go to your mailbox to activate your account
 In the subsequent settings, you will see *PAID*, which are benefits that need to be upgraded to enjoy.
 {{< /admonition >}}
 
-The mailbox jumps to the homepage of UptimeRobot. You can see that there is a mobile version available for download (~~~No need to carry a computer with you anytime and anywhere XD~~~) Then click +Add New Monitor
+The mailbox jumps to the homepage of UptimeRobot. You can see that there is a mobile version available for download (~~~No need to carry a computer with you anytime and anywhere 😂~~~) Then click +Add New Monitor
 ![Homepage](./first-page.jpg)
 
 Select monitoring type
