@@ -1,8 +1,0 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>文件 - 分類 - Rick&#39;s Web Site</title>
-        <link>https://as183789043.github.io/zh-tw/categories/documentation/</link>
-        <description>文件 - 分類 - Rick&#39;s Web Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-TW</language><managingEditor>rickhsu1999@gmail.com (Rick)</managingEditor>
-            <webMaster>rickhsu1999@gmail.com (Rick)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="https://as183789043.github.io/zh-tw/categories/documentation/" rel="self" type="application/rss+xml" /></channel>
-</rss>
