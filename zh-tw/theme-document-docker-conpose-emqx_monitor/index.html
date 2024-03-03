@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/as183789043.github.io\/zh-tw\/theme-document-docker-conpose-emqx_monitor\/"
-        },"image": ["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Docker, System","wordcount":  1529 ,
+        },"image": ["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Docker, System","wordcount":  1690 ,
         "url": "https:\/\/as183789043.github.io\/zh-tw\/theme-document-docker-conpose-emqx_monitor\/","datePublished": "2023-12-12T19:19:33+08:00","dateModified": "2023-12-12T19:19:33+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "RickHsu","logo": {
@@ -127,7 +127,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MQTT Broker 性能監控最佳佈建方案 - EMQX(二)</h1><h2 class="single-subtitle">Docker compose 一鍵部署完整監控系統組件</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/zh-tw/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Rick</a></span>&nbsp;<span class="post-category">收錄於 <a href="/zh-tw/categories/system/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-12">2023-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;約 1529 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-12">2023-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;約 1690 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;預計閱讀 4 分鐘&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -241,7 +241,18 @@
 </span></span><span class="line"><span class="cl">chmod <span class="m">777</span> emqx1_data
 </span></span></code></pre></td></tr></table>
 </div>
-</div></li>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>2024/03/03更新 排除手動修改權限操作<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><pre><code>透過在檔案 docker-compose.yaml 新增一個busybox容器，代替過去手動設定權限的方式  
+再將原emqx容器的啟動順序更改為等待busybox任務完成之後
+</code></pre>
+</div>
+        </div>
+    </div>
+</li>
 <li>
 <p>啟動檔案</p>
 <div class="highlight"><div class="chroma">
@@ -324,11 +335,31 @@
 </span><span class="lnt">60
 </span><span class="lnt">61
 </span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">busybox</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">bustybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./emqx1_data/:/root/emqx1_data/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&#34;chown&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;-R&#34;</span><span class="p">,</span><span class="s2">&#34;1000:1000&#34;</span><span class="w"> </span><span class="p">,</span><span class="s2">&#34;root/emqx1_data&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">emqx1</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">emqx:5.3.2</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">emqx1</span><span class="w">
@@ -349,7 +380,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">aliases</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">node1.emqx.io</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">&#39;busybox&#39;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_completed_successfully</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
@@ -396,12 +429,14 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><pre><code> version  : '3' 是目前docker compose的固定版本 可根據官網發布進行調整  
- services : 底下是各個組件的服務名稱(emqx1、prometheus) 
+ services : 各個組件的服務名稱(emqx1、prometheus) 
  container_name : 在虛擬機上的容器識別名稱
  ports    : 前者是外部連線port 後者是內部port
  volumes  : 外部文件掛載到容器的位置 
  networks : 使用的網卡，同一張容器才會互通 
  command  : 指定容器的啟動命令
+ depends_on : 指定容器要在誰之後啟動 保證相依性
+ depends_on &gt; condition : 進一步限定前一個容器完成特定條件才會啟動當前容器
  networks &gt; emqx-bridge &gt; driver : 定義網卡名為emqx-bridge 使用橋接模式
 </code></pre>
 </div>

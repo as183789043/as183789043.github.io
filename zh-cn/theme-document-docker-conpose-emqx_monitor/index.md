@@ -51,6 +51,10 @@
     mkdir emqx1_data
     chmod 777 emqx1_data
     ~~~
+    {{< admonition type="warning" title="2024/03/03更新 排除手动修改权限操作">}} 
+    透过在档案 docker-compose.yaml 新增一个busybox容器，代替过去手动设定权限的方式  
+    再将原emqx容器的启动顺序更改为等待busybox任务完成之后
+    {{< /admonition >}}
 
 3. 启动档案
     ~~~bash
@@ -67,6 +71,15 @@
     version: '3'
 
     services:
+      busybox:
+        image: busybox:latest
+        container_name: bustybox
+        volumes:
+          - ./emqx1_data/:/root/emqx1_data/
+        command: [ "chown", "-R","1000:1000" ,"root/emqx1_data"]
+        networks:
+          - emqx-bridge
+
       emqx1:
         image: emqx:5.3.2
         container_name: emqx1
@@ -87,7 +100,9 @@
           emqx-bridge:
             aliases:
             - node1.emqx.io
-
+        depends_on:
+          'busybox':
+            condition: service_completed_successfully
       prometheus:
         image: prom/prometheus
         container_name: prometheus
@@ -106,7 +121,7 @@
           - 9091:9091
         networks:
           - emqx-bridge
-        
+      
       node-exporter:
         image: prom/node-exporter
         container_name: node-exporter
@@ -126,18 +141,19 @@
     networks:
       emqx-bridge:
         driver: bridge
-
     ~~~
 
     {{< admonition info "docker-compose.yaml 说明" >}}
-     version  : '3' 是目前docker compose的固定版本 可根据官网发布进行调整  
-     services : 底下是各个组件的服务名称(emqx1、prometheus) 
-     container_name : 在虚拟机上的容器识别名称
-     ports    : 前者是外部连线port 后者是内部port
-     volumes  : 外部文件挂载到容器的位置 
-     networks : 使用的网卡，同一张容器才会互通 
-     command  : 指定容器的启动命令
-     networks > emqx-bridge > driver : 定义网卡名为emqx-bridge 使用桥接模式
+      version  : '3' 是目前docker compose的固定版本 可根据官网发布进行调整  
+      services : 各个组件的服务名称(emqx1、prometheus) 
+      container_name : 在虚拟机上的容器识别名称
+      ports    : 前者是外部连线port 后者是内部port
+      volumes  : 外部文件挂载到容器的位置 
+      networks : 使用的网卡，同一张容器才会互通 
+      command  : 指定容器的启动命令
+      depends_on : 指定容器要在谁之后启动 保证相依性
+      depends_on > condition : 进一步限定前一个容器完成特定条件才会启动当前容器
+      networks > emqx-bridge > driver : 定义网卡名为emqx-bridge 使用桥接模式
     {{< /admonition >}}
 
 2. prometheus.yaml  -> 透过EMQX网页生成。 Targets在同一张网卡可以直接写<容器名称:port>

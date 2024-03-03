@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/as183789043.github.io\/theme-document-docker-conpose-emqx_monitor\/"
-        },"image": ["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Docker, System","wordcount":  986 ,
+        },"image": ["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Docker, System","wordcount":  1087 ,
         "url": "https:\/\/as183789043.github.io\/theme-document-docker-conpose-emqx_monitor\/","datePublished": "2023-12-12T19:19:33+08:00","dateModified": "2023-12-12T19:19:33+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "RickHsu","logo": {
@@ -127,8 +127,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">The best deployment solution for MQTT Broker performance monitoring - EMQX (2)</h1><h2 class="single-subtitle">Docker compose deploys complete monitoring system components with one click</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Rick</a></span>&nbsp;<span class="post-category">included in <a href="/categories/system/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-12">2023-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;986 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-12">2023-12-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1087 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -241,7 +241,18 @@
 </span></span><span class="line"><span class="cl">chmod <span class="m">777</span> emqx1_data
 </span></span></code></pre></td></tr></table>
 </div>
-</div></li>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>2024/03/03Update Exclude manual permission modification operations<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><pre><code>By adding a busybox container in the file docker-compose.yaml, instead of manually setting permissions in the past
+ Then change the startup sequence of the original emqx container to wait for the completion of the busybox task.
+</code></pre>
+</div>
+        </div>
+    </div>
+</li>
 <li>
 <p>Start the file</p>
 <div class="highlight"><div class="chroma">
@@ -324,85 +335,109 @@
 </span><span class="lnt">60
 </span><span class="lnt">61
 </span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">emqx1</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">emqx:5.3.2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">emqx1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CMD&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;/opt/emqx/bin/emqx ctl&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;status&#34;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">60s</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">1883</span><span class="p">:</span><span class="m">1883</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8083</span><span class="p">:</span><span class="m">8083</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8084</span><span class="p">:</span><span class="m">8084</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8883</span><span class="p">:</span><span class="m">8883</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">18083</span><span class="p">:</span><span class="m">18083</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./emqx1_data/:/opt/emqx/data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">aliases</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">node1.emqx.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">busybox</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">bustybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">./emqx1_data/:/root/emqx1_data/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&#34;chown&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;-R&#34;</span><span class="p">,</span><span class="s2">&#34;1000:1000&#34;</span><span class="w"> </span><span class="p">,</span><span class="s2">&#34;root/emqx1_data&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">emqx-bridge</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./prometheus.yaml:/etc/prometheus/prometheus.yaml</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span>--<span class="l">config.file=/etc/prometheus/prometheus.yaml</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">9090</span><span class="p">:</span><span class="m">9090</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>-<span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">emqx1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">emqx:5.3.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">emqx1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CMD&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;/opt/emqx/bin/emqx ctl&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;status&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">60s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">1883</span><span class="p">:</span><span class="m">1883</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">8083</span><span class="p">:</span><span class="m">8083</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">8084</span><span class="p">:</span><span class="m">8084</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">8883</span><span class="p">:</span><span class="m">8883</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">18083</span><span class="p">:</span><span class="m">18083</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">./emqx1_data/:/opt/emqx/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">aliases</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span>- <span class="l">node1.emqx.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">&#39;busybox&#39;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l">service_completed_successfully</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">./prometheus.yaml:/etc/prometheus/prometheus.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span>--<span class="l">config.file=/etc/prometheus/prometheus.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">9090</span><span class="p">:</span><span class="m">9090</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">emqx-bridge</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pushgateway</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/pushgateway</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">pushgateway</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">9091</span><span class="p">:</span><span class="m">9091</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>-<span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">pushgateway</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/pushgateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">pushgateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">9091</span><span class="p">:</span><span class="m">9091</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">emqx-bridge</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">node-exporter</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/node-exporter</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">node-exporter</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">9100</span><span class="p">:</span><span class="m">9100</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>-<span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">node-exporter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/node-exporter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">node-exporter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">9100</span><span class="p">:</span><span class="m">9100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">emqx-bridge</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">grafana</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/grafana-oss</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3000</span><span class="p">:</span><span class="m">3000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>-<span class="l">emqx-bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">grafana</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">grafana/grafana-oss</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">grafana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="m">3000</span><span class="p">:</span><span class="m">3000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span>- <span class="l">emqx-bridge</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">emqx-bridge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition info open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>docker-compose.yaml description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>docker-compose.yaml 说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content"><pre><code>  version: '3' is the current fixed version of docker compose and can be adjusted according to the official website release
-  services: Below are the service names of each component (emqx1, prometheus)
+  services: service name of each component (emqx1, prometheus)
   container_name: The container identification name on the virtual machine
   ports: The former is an external connection port and the latter is an internal port
   volumes: The location where external files are mounted to the container
-  networks: The network interface card used, only the same container can communicate with each other
+  networks: The network card used, only the same container can communicate with each other
   command: Specify the startup command of the container
-  networks &gt; emqx-bridge &gt; driver: Define the network interface card name emqx-bridge to use bridge mode
+  depends_on: Specify after whom the container should be started to ensure dependencies
+  depends_on &gt; condition: further restrict the previous container to complete specific conditions before starting the current container.
+  networks &gt; emqx-bridge &gt; driver: Define the network card name emqx-bridge to use bridge mode
 </code></pre>
 </div>
         </div>

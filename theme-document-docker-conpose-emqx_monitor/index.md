@@ -51,7 +51,10 @@ Before officially entering our topic today, the tools you will need to prepare a
      mkdir emqx1_data
      chmod 777 emqx1_data
      ~~~
-
+    {{< admonition type="warning" title="2024/03/03Update Exclude manual permission modification operations">}} 
+    By adding a busybox container in the file docker-compose.yaml, instead of manually setting permissions in the past
+     Then change the startup sequence of the original emqx container to wait for the completion of the busybox task.
+    {{< /admonition >}}
 3. Start the file
      ~~~bash
      docker compose up -d
@@ -64,81 +67,94 @@ At this point, all monitoring components have been successfully started, and we 
 What exactly is done with the pulled files and the detailed explanation of the program code will be explained in this chapter.
 1. docker-compose.yaml
      ~~~yaml
-     version: '3'
+    version: '3'
 
-     services:
-       emqx1:
-         image: emqx:5.3.2
-         container_name: emqx1
-         healthcheck:
-           test: ["CMD", "/opt/emqx/bin/emqx ctl", "status"]
-           interval: 30s
-           timeout: 60s
-           retries: 5
-         ports:
-           - 1883:1883
-           - 8083:8083
-           - 8084:8084
-           - 8883:8883
-           - 18083:18083
-         volumes:
-           - ./emqx1_data/:/opt/emqx/data
-         networks:
-           emqx-bridge:
-             aliases:
-             - node1.emqx.io
+    services:
+      busybox:
+        image: busybox:latest
+        container_name: bustybox
+        volumes:
+          - ./emqx1_data/:/root/emqx1_data/
+        command: [ "chown", "-R","1000:1000" ,"root/emqx1_data"]
+        networks:
+          - emqx-bridge
 
-       prometheus:
-         image: prom/prometheus
-         container_name: prometheus
-         volumes:
-           - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
-         command: --config.file=/etc/prometheus/prometheus.yaml
-         ports:
-           - 9090:9090
-         networks:
-           -emqx-bridge
+      emqx1:
+        image: emqx:5.3.2
+        container_name: emqx1
+        healthcheck:
+          test: ["CMD", "/opt/emqx/bin/emqx ctl", "status"]
+          interval: 30s
+          timeout: 60s
+          retries: 5
+        ports:
+          - 1883:1883
+          - 8083:8083
+          - 8084:8084
+          - 8883:8883
+          - 18083:18083 
+        volumes:
+          - ./emqx1_data/:/opt/emqx/data
+        networks:
+          emqx-bridge:
+            aliases:
+            - node1.emqx.io
+        depends_on:
+          'busybox':
+            condition: service_completed_successfully
+      prometheus:
+        image: prom/prometheus
+        container_name: prometheus
+        volumes:
+          - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+        command: --config.file=/etc/prometheus/prometheus.yaml
+        ports:
+          - 9090:9090
+        networks:
+          - emqx-bridge
 
-       pushgateway:
-         image: prom/pushgateway
-         container_name: pushgateway
-         ports:
-           - 9091:9091
-         networks:
-           -emqx-bridge
-        
-       node-exporter:
-         image: prom/node-exporter
-         container_name: node-exporter
-         ports:
-           - 9100:9100
-         networks:
-           -emqx-bridge
+      pushgateway:
+        image: prom/pushgateway
+        container_name: pushgateway
+        ports:
+          - 9091:9091
+        networks:
+          - emqx-bridge
+      
+      node-exporter:
+        image: prom/node-exporter
+        container_name: node-exporter
+        ports:
+          - 9100:9100
+        networks:
+          - emqx-bridge
 
-       grafana:
-         image: grafana/grafana-oss
-         container_name: grafana
-         ports:
-           - 3000:3000
-         networks:
-           -emqx-bridge
+      grafana:
+        image: grafana/grafana-oss
+        container_name: grafana
+        ports:
+          - 3000:3000
+        networks:
+          - emqx-bridge
 
-     networks:
-       emqx-bridge:
-         driver: bridge
+    networks:
+      emqx-bridge:
+        driver: bridge
 
      ~~~
 
-     {{< admonition info "docker-compose.yaml description" >}}
+    {{< admonition info "docker-compose.yaml 说明" >}}
       version: '3' is the current fixed version of docker compose and can be adjusted according to the official website release
-      services: Below are the service names of each component (emqx1, prometheus)
+      services: service name of each component (emqx1, prometheus)
       container_name: The container identification name on the virtual machine
       ports: The former is an external connection port and the latter is an internal port
       volumes: The location where external files are mounted to the container
-      networks: The network interface card used, only the same container can communicate with each other
+      networks: The network card used, only the same container can communicate with each other
       command: Specify the startup command of the container
-      networks > emqx-bridge > driver: Define the network interface card name emqx-bridge to use bridge mode
-     {{< /admonition >}}
+      depends_on: Specify after whom the container should be started to ensure dependencies
+      depends_on > condition: further restrict the previous container to complete specific conditions before starting the current container.
+      networks > emqx-bridge > driver: Define the network card name emqx-bridge to use bridge mode
+    {{< /admonition >}}
 
 2. prometheus.yaml -> Generated through EMQX web page. Targets can directly write <container name: port> on the same network interface card 
     ~~~yaml
