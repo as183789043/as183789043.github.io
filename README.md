@@ -1,2 +1,3 @@
 ## Architecture Diagram
-![image](https://github.com/user-attachments/assets/7c31b53c-0998-43f9-8776-5a7995853687)
+![image](https://github.com/user-attachments/assets/ef4da607-bfd5-4bef-8849-8ac7095919be)
+
