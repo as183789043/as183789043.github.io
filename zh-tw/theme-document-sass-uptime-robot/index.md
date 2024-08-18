@@ -53,7 +53,7 @@ Monitor Timeout : 檢查當下多久沒回應判定異常 </br>
 設定完成可以透過測試來檢查設定是否正確 
 ![test](./test.jpg)  
 
-回到信箱查看 服務正常，但時區異常
+回到信箱查看 服務正常，但時區異常  
 ![error_timezone](./error_timezone.jpg)
  
 更改時區設定 (測試後信件時區正常，儀錶板仍為UTC+0)

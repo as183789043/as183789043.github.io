@@ -17,12 +17,13 @@ The picture below is taken from the cover of the official website. Under free us
 
 
 ## Registration steps
-
+ 
 [Official website registration link](https://uptimerobot.com/signUp?ref=website-header)
  
-Enter registration information
-![Register](./register.png)
-
+Enter registration information  
+![Register](./register.png) 
+ 
+ 
 Go to your mailbox to activate your account
 ![Verify](./vaildate.jpg)
 

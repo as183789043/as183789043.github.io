@@ -89,7 +89,7 @@ If Ubuntu does not have a desktop installed, you can refer to the following meth
 
 
 ## UI settings
-Entering the UI requires setting an account and password.
+Entering the UI requires setting an account and password.  
 ![UI](./setting.png)
 
 Start with the simplest web page monitoring
@@ -103,13 +103,13 @@ If you have advanced needs, you can also check the box to check the remaining da
 ## Alarm system Line Notify settings
 Can set more than one notification
 ![notify](./notify.png)
-When you see that a token is required and there are instructions below on how to get it, click on the URL in the red box below.
+When you see that a token is required and there are instructions below on how to get it, click on the URL in the red box below.  
 ![token](./token.png)
 Click on the upper right corner
 ![line_login](./line_login.png)
 You can choose to log in with an account or qrcode
 ![line_login_2](./line_login_2.png)
-You can choose how notification is sent. It can be directed to individuals or in groups. Test first to see the effect on 1-on-1 basis.
+You can choose how notification is sent. It can be directed to individuals or in groups. Test first to see the effect on 1-on-1 basis.  
 ![publish_token](./publish_token.png)
 
 

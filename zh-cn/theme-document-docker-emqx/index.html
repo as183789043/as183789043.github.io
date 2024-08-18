@@ -1,41 +1,448 @@
-<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>高性能物联网MQTT Broker - EMQX - Rick's Web Site</title><meta name=Description content="EMQX介面导览与简易MQTT通讯实作"><meta property="og:title" content="高性能物联网MQTT Broker - EMQX"><meta property="og:description" content="EMQX介面导览与简易MQTT通讯实作"><meta property="og:type" content="article"><meta property="og:url" content="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/"><meta property="og:image" content="https://as183789043.github.io/images/emqx_Logo.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-11-27T18:06:53+08:00"><meta property="article:modified_time" content="2023-11-27T18:06:53+08:00"><meta property="og:site_name" content="Rick's web site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://as183789043.github.io/images/emqx_Logo.jpg"><meta name=twitter:title content="高性能物联网MQTT Broker - EMQX"><meta name=twitter:description content="EMQX介面导览与简易MQTT通讯实作"><meta name=application-name content="Rick's Web Site"><meta name=apple-mobile-web-app-title content="Rick's Web Site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=canonical href=https://as183789043.github.io/zh-cn/theme-document-docker-emqx/><link rel=prev href=https://as183789043.github.io/zh-cn/theme-document-sass-uptime-robot/><link rel=next href=https://as183789043.github.io/zh-cn/theme-document-docker-conpose-emqx_monitor/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"高性能物联网MQTT Broker - EMQX","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-emqx\/"},"image":["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"System, IoT, Docker","wordcount":1628,"url":"https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-emqx\/","datePublished":"2023-11-27T18:06:53+08:00","dateModified":"2023-11-27T18:06:53+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"RickHsu","logo":{"@type":"ImageObject","url":"https:\/\/as183789043.github.io\/images\/avatar.png","width":256,"height":256}},"author":{"@type":"Person","name":"Rick"},"description":"EMQX介面导览与简易MQTT通讯实作"}</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css><script async src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-RZF9PR9XQG")</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div id=loader-wrapper><div id=loader><div class=spinner><div class=cube1></div><div class=cube2></div></div><div class=loading-text>載入中...</div></div><div class="loader-section section-left"></div><div class="loader-section section-right"></div></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title="Rick's Web Site">Rick's Web Site<span class=header-title-post><i class="fa-solid fa-seedling" style=color:#11e462></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/zh-cn/posts/>所有文章 </a><a class=menu-item href=/zh-cn/tags/>标签 </a><a class=menu-item href=/zh-cn/categories/>分类 </a><a class=menu-item href=/zh-cn/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
-<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
-</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i>
-</a><a href=javascript:void(0); class="menu-item language" title=选择语言><i class="fa fa-globe" aria-hidden=true></i>
-<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/theme-document-docker-emqx/>English</option><option value=/zh-cn/theme-document-docker-emqx/ selected>简体中文</option><option value=/zh-tw/theme-document-docker-emqx/>繁体中文</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title="Rick's Web Site">Rick's Web Site<span class=header-title-post><i class="fa-solid fa-seedling" style=color:#11e462></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/zh-cn/posts/ title>所有文章</a><a class=menu-item href=/zh-cn/tags/ title>标签</a><a class=menu-item href=/zh-cn/categories/ title>分类</a><a class=menu-item href=/zh-cn/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
-</a><a href=javascript:void(0); class=menu-item title=选择语言><i class="fa fa-globe fa-fw" aria-hidden=true></i>
-<select class=language-select onchange="location=this.value"><option value=/theme-document-docker-emqx/>English</option><option value=/zh-cn/theme-document-docker-emqx/ selected>简体中文</option><option value=/zh-tw/theme-document-docker-emqx/>繁体中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">高性能物联网MQTT Broker - EMQX</h1><h2 class=single-subtitle>EMQX介面导览与简易MQTT通讯实作</h2><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/zh-cn/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Rick</a></span>&nbsp;<span class=post-category>收录于 <a href=/zh-cn/categories/system/><i class="far fa-folder fa-fw" aria-hidden=true></i>System</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-11-27>2023-11-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 1628 字&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 4 分钟&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/images/emqx_Logo.jpg data-srcset="/images/emqx_Logo.jpg, /images/emqx_Logo.jpg 1.5x, /images/emqx_Logo.jpg 2x" data-sizes=auto alt=/images/emqx_Logo.jpg title=EMQX介面导览与简易MQTT通讯实作 width=2276 height=748></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#前言>前言</a></li><li><a href=#与相似产品mosquito的差异>与相似产品Mosquito的差异</a></li><li><a href=#开始之前>开始之前</a></li><li><a href=#docker启动emqx>Docker启动EMQX</a></li><li><a href=#功能探索>功能探索</a><ul><li><a href=#系统资讯概览>系统资讯概览</a></li><li><a href=#建立一个user>建立一个User</a></li></ul></li><li><a href=#mqtt连线测试>MQTT连线测试</a></li><li><a href=#websocket-连线设定>WebSocket 连线设定</a></li><li><a href=#图表检视>图表检视</a></li><li><a href=#结语>结语</a></li></ul></nav></div></div><div class=content id=content><h2 id=前言>前言</h2><p>提到MQTT协定，大多数人第一个想到的场景应该是在物联网的通讯之中，其中原因在于MQTT相比网页上使用的HTTP协定来的更简便，传输的封包讯息也更小。非常适用于在有限频宽和计算资源的状况下收发资料。<br></p><p>至于MQTT具体协议是在做什么 就让我们看下方的图来说明
-<img class=lazyload src=/svg/loading.min.svg data-src=./mqtt-protocol.png data-srcset="./mqtt-protocol.png, ./mqtt-protocol.png 1.5x, ./mqtt-protocol.png 2x" data-sizes=auto alt=./mqtt-protocol.png title=MQTT-Protocol></p><div class="details admonition info open"><div class="details-summary admonition-title"><i class="icon fas fa-info-circle fa-fw" aria-hidden=true></i>协定说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>从图中我们可以看到 正中间有一个类似MQTT大脑的地方，一般称之为MQTT Broker， 这里会将左边的讯息发布(Publish) 转送到右边的订阅者(Subscribe)手上。这样就完成了一次消息的传递。<br></p><p><b>问题: 那么我们怎么确认发布与通讯可以正确传递，但又不会拿到其他的杂讯?</b></p><p>从图中可以看到各个项目连接的地方有一些类似路径的东西，这个是所谓的主题(Topic)，发布与订阅在同一个主题才能接收到讯息。<br></p><p>如果想取得多个主题可以在路径中设置<b>#</b> 来进行多主题读取，但需要注意<b>/</b>代表分层且第一层开头没有<b>/</b></p></div></div></div><h2 id=与相似产品mosquito的差异>与相似产品Mosquito的差异</h2><p>老牌的Mosquito对于有研究IoT的爱好者来说，想必不陌生，其简单的安装方式。让使用者可以快速体验MQTT协议的各个组件如何设置。<br></p><p>但相较之下有以下几个理由令我觉得使用EMQX也不失为一个好选择。</p><ul><li>短时间可以处理更多的消息传递</li><li>直接有GUI画面可以进行浏览和额外设置</li><li>内部可以将数据倒出Prometheus(时序性资料库)进行存储</li><li>如果需要使用在微务架构上，也有提供相应的安装方式</li></ul><p><a href=https://www.emqx.com/zh/blog/emqx-vs-mosquitto-2023-mqtt-broker-comparison target=_blank rel="noopener noreffer">EMQX vs Mosquitto 官网详细说明</a></p><p><img class=lazyload src=/svg/loading.min.svg data-src=./compaire.jpg data-srcset="./compaire.jpg, ./compaire.jpg 1.5x, ./compaire.jpg 2x" data-sizes=auto alt=./compaire.jpg title=compaire></p><h2 id=开始之前>开始之前</h2><p>在正式进入我们今日主题之前，会需要使用以下两项工具来演示</p><ul><li>Docker</li><li><a href=https://mqttx.app/ target=_blank rel="noopener noreffer">MQTTX</a></li></ul><div class="details admonition info open"><div class="details-summary admonition-title"><i class="icon fas fa-info-circle fa-fw" aria-hidden=true></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>如果缺少Docker环境可以看这篇<a href=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7 target=_blank rel="noopener noreffer">私有环境网站监控系统建置- Uptime-kuma</a>中的安装前置需求!!</div></div></div><h2 id=docker启动emqx>Docker启动EMQX</h2><p>安装好Docker之后输入以下指令</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>docker run -d --name emqx <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -p 1883:1883 -p 8083:8083 <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -p 8084:8084 -p 8883:8883 <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -p 18083:18083 <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -v <span class=nv>$PWD</span>/data:/opt/emqx/data <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  -v <span class=nv>$PWD</span>/log:/opt/emqx/log <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  emqx/emqx:5.3.1
-</span></span></code></pre></td></tr></table></div></div><div class="details admonition info open"><div class="details-summary admonition-title"><i class="icon fas fa-info-circle fa-fw" aria-hidden=true></i>参数说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><ul><li>-d : 背景运行</li><li>-p : 端口mapping(前者是电脑本的port 后者是容器内部的port)</li><li>-v : 目录挂载进行永久化存储($PWD = 电脑当前目录)</li><li>1883 : MQTT标准通信Port</li><li>8083 : WebSocket</li><li>8084 : 具有SSL 的 WebSocket</li><li>8883 : 具有SSL 的 MQTT</li><li>18083 : Web UI</li></ul></div></div></div><p>本地环境如果没有EMQX的image，Docker run 会自动到Docker Hub 上去下载，看到如右侧的指令跑完，在浏览器上输入<a href=http://localhost:18083 target=_blank rel="noopener noreffer">http://lcoalhost:18083</a>即可进入Login Page<div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>默认登入资讯<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>Username : admin<br>Password : public</p><p>第一次登系统会提示修改密码</p></div></div></div></p><p><img class=lazyload src=/svg/loading.min.svg data-src=./login.png data-srcset="./login.png, ./login.png 1.5x, ./login.png 2x" data-sizes=auto alt=./login.png title=login></p><h2 id=功能探索>功能探索</h2><h3 id=系统资讯概览>系统资讯概览</h3><p>进入首页后预设简体中文，可以透过右上角齿轮选择语言 和黑/白模式
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>高性能物联网MQTT Broker - EMQX - Rick&#39;s Web Site</title><meta name="Description" content="EMQX介面导览与简易MQTT通讯实作"><meta property="og:title" content="高性能物联网MQTT Broker - EMQX" />
+<meta property="og:description" content="EMQX介面导览与简易MQTT通讯实作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" /><meta property="og:image" content="https://as183789043.github.io/images/emqx_Logo.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-27T18:06:53+08:00" />
+<meta property="article:modified_time" content="2023-11-27T18:06:53+08:00" /><meta property="og:site_name" content="Rick&#39;s web site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://as183789043.github.io/images/emqx_Logo.jpg"/>
+
+<meta name="twitter:title" content="高性能物联网MQTT Broker - EMQX"/>
+<meta name="twitter:description" content="EMQX介面导览与简易MQTT通讯实作"/>
+<meta name="application-name" content="Rick&#39;s Web Site">
+<meta name="apple-mobile-web-app-title" content="Rick&#39;s Web Site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" /><link rel="prev" href="https://as183789043.github.io/zh-cn/theme-document-sass-uptime-robot/" /><link rel="next" href="https://as183789043.github.io/zh-cn/theme-document-docker-conpose-emqx_monitor/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "高性能物联网MQTT Broker - EMQX",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-emqx\/"
+        },"image": ["https:\/\/as183789043.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "System, IoT, Docker","wordcount":  1628 ,
+        "url": "https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-emqx\/","datePublished": "2023-11-27T18:06:53+08:00","dateModified": "2023-11-27T18:06:53+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "RickHsu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/as183789043.github.io\/images\/avatar.png",
+                    "width":  256 ,
+                    "height":  256 
+                }},"author": {
+                "@type": "Person",
+                "name": "Rick"
+            },"description": "EMQX介面导览与简易MQTT通讯实作"
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RZF9PR9XQG');
+    </script>
+    
+
+</head>
+
+<body data-header-desktop="fixed"
+    data-header-mobile="auto"><script
+        type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+    <div id="mask"></div>
+    <div id="loader-wrapper">
+        <div id="loader">
+            <div class="spinner">
+                <div class="cube1"></div>
+                <div class="cube2"></div>
+            </div>
+            <div class="loading-text">載入中...</div>
+        </div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 所有文章 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><a class="menu-item" href="/zh-cn/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/theme-document-docker-emqx/">English</option><option value="/zh-cn/theme-document-docker-emqx/" selected>简体中文</option><option value="/zh-tw/theme-document-docker-emqx/">繁体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/" title="">所有文章</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a class="menu-item" href="/zh-cn/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/theme-document-docker-emqx/">English</option><option value="/zh-cn/theme-document-docker-emqx/" selected>简体中文</option><option value="/zh-tw/theme-document-docker-emqx/">繁体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">高性能物联网MQTT Broker - EMQX</h1><h2 class="single-subtitle">EMQX介面导览与简易MQTT通讯实作</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Rick</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/system/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-27">2023-11-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1628 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/emqx_Logo.jpg"
+        data-srcset="/images/emqx_Logo.jpg, /images/emqx_Logo.jpg 1.5x, /images/emqx_Logo.jpg 2x"
+        data-sizes="auto"
+        alt="/images/emqx_Logo.jpg"
+        title="EMQX介面导览与简易MQTT通讯实作" width="2276" height="748" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#与相似产品mosquito的差异">与相似产品Mosquito的差异</a></li>
+    <li><a href="#开始之前">开始之前</a></li>
+    <li><a href="#docker启动emqx">Docker启动EMQX</a></li>
+    <li><a href="#功能探索">功能探索</a>
+      <ul>
+        <li><a href="#系统资讯概览">系统资讯概览</a></li>
+        <li><a href="#建立一个user">建立一个User</a></li>
+      </ul>
+    </li>
+    <li><a href="#mqtt连线测试">MQTT连线测试</a></li>
+    <li><a href="#websocket-连线设定">WebSocket 连线设定</a></li>
+    <li><a href="#图表检视">图表检视</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>提到MQTT协定，大多数人第一个想到的场景应该是在物联网的通讯之中，其中原因在于MQTT相比网页上使用的HTTP协定来的更简便，传输的封包讯息也更小。非常适用于在有限频宽和计算资源的状况下收发资料。 <br></p>
+<p>至于MQTT具体协议是在做什么 就让我们看下方的图来说明
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./mqtt-protocol.png"
+        data-srcset="./mqtt-protocol.png, ./mqtt-protocol.png 1.5x, ./mqtt-protocol.png 2x"
+        data-sizes="auto"
+        alt="./mqtt-protocol.png"
+        title="MQTT-Protocol" /></p>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>协定说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>从图中我们可以看到 正中间有一个类似MQTT大脑的地方，一般称之为MQTT Broker， 这里会将左边的讯息发布(Publish) 转送到右边的订阅者(Subscribe)手上。这样就完成了一次消息的传递。 <br></p>
+<p><b>问题: 那么我们怎么确认发布与通讯可以正确传递，但又不会拿到其他的杂讯? </b></p>
+<p>从图中可以看到各个项目连接的地方有一些类似路径的东西，这个是所谓的主题(Topic)，发布与订阅在同一个主题才能接收到讯息。 <br></p>
+<p>如果想取得多个主题可以在路径中设置<b>#</b> 来进行多主题读取，但需要注意<b>/</b>代表分层且第一层开头没有<b>/ </b></p>
+</div>
+        </div>
+    </div>
+<h2 id="与相似产品mosquito的差异">与相似产品Mosquito的差异</h2>
+<p>老牌的Mosquito对于有研究IoT的爱好者来说，想必不陌生，其简单的安装方式。让使用者可以快速体验MQTT协议的各个组件如何设置。 <br></p>
+<p>但相较之下有以下几个理由令我觉得使用EMQX也不失为一个好选择。</p>
+<ul>
+<li>短时间可以处理更多的消息传递</li>
+<li>直接有GUI画面可以进行浏览和额外设置</li>
+<li>内部可以将数据倒出Prometheus(时序性资料库)进行存储</li>
+<li>如果需要使用在微务架构上，也有提供相应的安装方式</li>
+</ul>
+<p><a href="https://www.emqx.com/zh/blog/emqx-vs-mosquitto-2023-mqtt-broker-comparison" target="_blank" rel="noopener noreffer ">EMQX vs Mosquitto 官网详细说明</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./compaire.jpg"
+        data-srcset="./compaire.jpg, ./compaire.jpg 1.5x, ./compaire.jpg 2x"
+        data-sizes="auto"
+        alt="./compaire.jpg"
+        title="compaire" /></p>
+<h2 id="开始之前">开始之前</h2>
+<p>在正式进入我们今日主题之前，会需要使用以下两项工具来演示</p>
+<ul>
+<li>Docker</li>
+<li><a href="https://mqttx.app/" target="_blank" rel="noopener noreffer ">MQTTX</a></li>
+</ul>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">如果缺少Docker环境可以看这篇<a href="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7" target="_blank" rel="noopener noreffer ">私有环境网站监控系统建置- Uptime-kuma</a>中的安装前置需求!!</div>
+        </div>
+    </div>
+<h2 id="docker启动emqx">Docker启动EMQX</h2>
+<p>安装好Docker之后输入以下指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d --name emqx <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -p 1883:1883 -p 8083:8083 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -p 8084:8084 -p 8883:8883 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -p 18083:18083 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/data:/opt/emqx/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v <span class="nv">$PWD</span>/log:/opt/emqx/log <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  emqx/emqx:5.3.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>参数说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>-d : 背景运行</li>
+<li>-p : 端口mapping(前者是电脑本的port 后者是容器内部的port)</li>
+<li>-v : 目录挂载进行永久化存储($PWD = 电脑当前目录)</li>
+<li>1883 : MQTT标准通信Port</li>
+<li>8083 : WebSocket</li>
+<li>8084 : 具有SSL 的 WebSocket</li>
+<li>8883 : 具有SSL 的 MQTT</li>
+<li>18083 : Web UI</li>
+</ul>
+</div>
+        </div>
+    </div>
+<p>本地环境如果没有EMQX的image，Docker run 会自动到Docker Hub 上去下载，看到如右侧的指令跑完，在浏览器上输入<a href="http://localhost:18083" target="_blank" rel="noopener noreffer ">http://lcoalhost:18083</a>即可进入Login Page
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>默认登入资讯<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Username : admin<br>
+Password : public</p>
+<p>第一次登系统会提示修改密码</p>
+</div>
+        </div>
+    </div></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./login.png"
+        data-srcset="./login.png, ./login.png 1.5x, ./login.png 2x"
+        data-sizes="auto"
+        alt="./login.png"
+        title="login" /></p>
+<h2 id="功能探索">功能探索</h2>
+<h3 id="系统资讯概览">系统资讯概览</h3>
+<p>进入首页后预设简体中文，可以透过右上角齿轮选择语言 和黑/白模式
 红框中的内容可以看到系统的资讯概览，例如:系统资源、MQTT订阅数量、目前有多少Topic
-<img class=lazyload src=/svg/loading.min.svg data-src=./loginpage.png data-srcset="./loginpage.png, ./loginpage.png 1.5x, ./loginpage.png 2x" data-sizes=auto alt=./loginpage.png title=loginpage></p><br><h3 id=建立一个user>建立一个User</h3><p><img class=lazyload src=/svg/loading.min.svg data-src=./adduser.png data-srcset="./adduser.png, ./adduser.png 1.5x, ./adduser.png 2x" data-sizes=auto alt=./adduser.png title=adduser></p><p>建立用户资料库
-<img class=lazyload src=/svg/loading.min.svg data-src=./auth.png data-srcset="./auth.png, ./auth.png 1.5x, ./auth.png 2x" data-sizes=auto alt=./auth.png title=auth></p><p>可以看到用户资料库已经建立，点选User 进入里面新增之后要用的Username
-<img class=lazyload src=/svg/loading.min.svg data-src=./db.png data-srcset="./db.png, ./db.png 1.5x, ./db.png 2x" data-sizes=auto alt=./db.png title=db></p><p>新的user没有帐号复杂度限制<br><img class=lazyload src=/svg/loading.min.svg data-src=./newuser.png data-srcset="./newuser.png, ./newuser.png 1.5x, ./newuser.png 2x" data-sizes=auto alt=./newuser.png title=newuser></p><p>至此已经建立了连线的必备资讯，我们可以开始透过连线来使用EMQX了</p><h2 id=mqtt连线测试>MQTT连线测试</h2><p>点选新连线输入以下资讯</p><ul><li>HOST : MQTT + 连线IP(本机用localhost)</li><li>Port : 1883</li><li>Username : 上一小节设定的帐号</li><li>Password : 上一小节设定的密码
-<img class=lazyload src=/svg/loading.min.svg data-src=./info.png data-srcset="./info.png, ./info.png 1.5x, ./info.png 2x" data-sizes=auto alt=./info.png title=info></li></ul><p>设定好连线后需要先设定订阅主题 后续才能收到发布</p><p>订阅主题 -> topic/#<br>发布主题 -> topic/123、topic/456</p><p>图片中的红线代表着分别是哪一方产生的回应(订阅、发布)</p><p>图片中发布讯息框上面有一个写者 topic/456 的栏位 更改这里可以发布不同主题
-<img class=lazyload src=/svg/loading.min.svg data-src=./publish.png data-srcset="./publish.png, ./publish.png 1.5x, ./publish.png 2x" data-sizes=auto alt=./publish.png title=publish></p><h2 id=websocket-连线设定>WebSocket 连线设定</h2><p><img class=lazyload src=/svg/loading.min.svg data-src=./WebSocket.png data-srcset="./WebSocket.png, ./WebSocket.png 1.5x, ./WebSocket.png 2x" data-sizes=auto alt=./WebSocket.png title=WebSocket></p><p>接下来我们可以透过同一个页面的下方发布和订阅消息，但如果消息订阅主题错误，会产生有送出但没收到的状况
-<img class=lazyload src=/svg/loading.min.svg data-src=./receive.png data-srcset="./receive.png, ./receive.png 1.5x, ./receive.png 2x" data-sizes=auto alt=./receive.png title=receive></p><h2 id=图表检视>图表检视</h2><p>回到首页可以看见刚才进行连线的资讯已经整理成时序性图表呈现</p><ul><li>Incoming Messages 指的是发布传入MQTT Broker的数量</li><li>Outgoing Messages 指的是传入订阅的数量</li></ul><p><img class=lazyload src=/svg/loading.min.svg data-src=./overview.png data-srcset="./overview.png, ./overview.png 1.5x, ./overview.png 2x" data-sizes=auto alt=./overview.png title=overview></p><h2 id=结语>结语</h2><p>相信上述的操作能让读者对EMQX有更进一步的认识，对于现在的环境来说，具有足够好的扩展能力对于将MQTT协议带入现实能力式不可少的。而这部分在此工具都有相应的满足需求。且操作下来只要有了解MQTT组件间的传递就很容易上手。</p><p>当然这些只是入门，后续还会有更进阶的操作可以发掘，比如使用中间件进行数据转换，与资料库整合、设置黑名单等等功能 就留给各位去探索了</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2023-11-27</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/zh-cn/theme-document-docker-emqx/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://as183789043.github.io/zh-cn/theme-document-docker-emqx/ data-title="高性能物联网MQTT Broker - EMQX" data-hashtags=System,IoT,Docker><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://as183789043.github.io/zh-cn/theme-document-docker-emqx/ data-hashtag=System><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://as183789043.github.io/zh-cn/theme-document-docker-emqx/ data-title="高性能物联网MQTT Broker - EMQX"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://as183789043.github.io/zh-cn/theme-document-docker-emqx/ data-title="高性能物联网MQTT Broker - EMQX"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://as183789043.github.io/zh-cn/theme-document-docker-emqx/ data-title="高性能物联网MQTT Broker - EMQX" data-image=./images/emqx_Logo.jpg><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/zh-cn/tags/system/>System</a>,&nbsp;<a href=/zh-cn/tags/iot/>IoT</a>,&nbsp;<a href=/zh-cn/tags/docker/>Docker</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/zh-cn/>主页</a></span></section></div><div class=post-nav><a href=/zh-cn/theme-document-sass-uptime-robot/ class=prev rel=prev title="免费线上网页监控服务 - UptimeRobot"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>免费线上网页监控服务 - UptimeRobot</a>
-<a href=/zh-cn/theme-document-docker-conpose-emqx_monitor/ class=next rel=next title="MQTT Broker 性能监控最佳布建方案 - EMQX(二)">MQTT Broker 性能监控最佳布建方案 - EMQX(二)<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css><script type=text/javascript src=https://comment-taiwan.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,search:{algoliaAppID:"3990F4O1T5",algoliaIndex:"index.zh-cn",algoliaSearchKey:"f3d11d4be2386305b9bbab78ba0e4d53",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript src=/js/custom.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-RZF9PR9XQG")</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG" async></script></body></html>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./loginpage.png"
+        data-srcset="./loginpage.png, ./loginpage.png 1.5x, ./loginpage.png 2x"
+        data-sizes="auto"
+        alt="./loginpage.png"
+        title="loginpage" /></p>
+<br>
+<h3 id="建立一个user">建立一个User</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./adduser.png"
+        data-srcset="./adduser.png, ./adduser.png 1.5x, ./adduser.png 2x"
+        data-sizes="auto"
+        alt="./adduser.png"
+        title="adduser" /></p>
+<p>建立用户资料库
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./auth.png"
+        data-srcset="./auth.png, ./auth.png 1.5x, ./auth.png 2x"
+        data-sizes="auto"
+        alt="./auth.png"
+        title="auth" /></p>
+<p>可以看到用户资料库已经建立，点选User 进入里面新增之后要用的Username
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./db.png"
+        data-srcset="./db.png, ./db.png 1.5x, ./db.png 2x"
+        data-sizes="auto"
+        alt="./db.png"
+        title="db" /></p>
+<p>新的user没有帐号复杂度限制<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./newuser.png"
+        data-srcset="./newuser.png, ./newuser.png 1.5x, ./newuser.png 2x"
+        data-sizes="auto"
+        alt="./newuser.png"
+        title="newuser" /></p>
+<p>至此已经建立了连线的必备资讯，我们可以开始透过连线来使用EMQX了</p>
+<h2 id="mqtt连线测试">MQTT连线测试</h2>
+<p>点选新连线输入以下资讯</p>
+<ul>
+<li>HOST : MQTT + 连线IP(本机用localhost)</li>
+<li>Port : 1883</li>
+<li>Username : 上一小节设定的帐号</li>
+<li>Password : 上一小节设定的密码
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./info.png"
+        data-srcset="./info.png, ./info.png 1.5x, ./info.png 2x"
+        data-sizes="auto"
+        alt="./info.png"
+        title="info" /></li>
+</ul>
+<p>设定好连线后需要先设定订阅主题 后续才能收到发布</p>
+<p>订阅主题 -&gt; topic/#<br>
+发布主题 -&gt; topic/123、topic/456</p>
+<p>图片中的红线代表着分别是哪一方产生的回应(订阅、发布)</p>
+<p>图片中发布讯息框上面有一个写者 topic/456 的栏位 更改这里可以发布不同主题
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./publish.png"
+        data-srcset="./publish.png, ./publish.png 1.5x, ./publish.png 2x"
+        data-sizes="auto"
+        alt="./publish.png"
+        title="publish" /></p>
+<h2 id="websocket-连线设定">WebSocket 连线设定</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./WebSocket.png"
+        data-srcset="./WebSocket.png, ./WebSocket.png 1.5x, ./WebSocket.png 2x"
+        data-sizes="auto"
+        alt="./WebSocket.png"
+        title="WebSocket" /></p>
+<p>接下来我们可以透过同一个页面的下方发布和订阅消息，但如果消息订阅主题错误，会产生有送出但没收到的状况
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./receive.png"
+        data-srcset="./receive.png, ./receive.png 1.5x, ./receive.png 2x"
+        data-sizes="auto"
+        alt="./receive.png"
+        title="receive" /></p>
+<h2 id="图表检视">图表检视</h2>
+<p>回到首页可以看见刚才进行连线的资讯已经整理成时序性图表呈现</p>
+<ul>
+<li>Incoming Messages 指的是发布传入MQTT Broker的数量</li>
+<li>Outgoing Messages 指的是传入订阅的数量</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./overview.png"
+        data-srcset="./overview.png, ./overview.png 1.5x, ./overview.png 2x"
+        data-sizes="auto"
+        alt="./overview.png"
+        title="overview" /></p>
+<h2 id="结语">结语</h2>
+<p>相信上述的操作能让读者对EMQX有更进一步的认识，对于现在的环境来说，具有足够好的扩展能力对于将MQTT协议带入现实能力式不可少的。而这部分在此工具都有相应的满足需求。且操作下来只要有了解MQTT组件间的传递就很容易上手。</p>
+<p>当然这些只是入门，后续还会有更进阶的操作可以发掘，比如使用中间件进行数据转换，与资料库整合、设置黑名单等等功能 就留给各位去探索了</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/theme-document-docker-emqx/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" data-title="高性能物联网MQTT Broker - EMQX" data-hashtags="System,IoT,Docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" data-hashtag="System"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" data-title="高性能物联网MQTT Broker - EMQX"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" data-title="高性能物联网MQTT Broker - EMQX"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-emqx/" data-title="高性能物联网MQTT Broker - EMQX" data-image="./images/emqx_Logo.jpg"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/zh-cn/tags/system/">System</a>,&nbsp;<a href="/zh-cn/tags/iot/">IoT</a>,&nbsp;<a href="/zh-cn/tags/docker/">Docker</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/theme-document-sass-uptime-robot/" class="prev" rel="prev" title="免费线上网页监控服务 - UptimeRobot"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>免费线上网页监控服务 - UptimeRobot</a>
+            <a href="/zh-cn/theme-document-docker-conpose-emqx_monitor/" class="next" rel="next" title="MQTT Broker 性能监控最佳布建方案 - EMQX(二)">MQTT Broker 性能监控最佳布建方案 - EMQX(二)<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"></div>
+        </div>
+    </footer></div>
+
+    <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+        </a>
+    </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script type="text/javascript" src="https://comment-taiwan.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"search":{"algoliaAppID":"3990F4O1T5","algoliaIndex":"index.zh-cn","algoliaSearchKey":"f3d11d4be2386305b9bbab78ba0e4d53","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-RZF9PR9XQG');
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG" async></script></body>
+
+</html>

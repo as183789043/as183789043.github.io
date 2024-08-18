@@ -1,59 +1,495 @@
-<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>私有环境网站监控系统建置 - Uptime-kuma - Rick's Web Site</title><meta name=Description content="透过Docker快速建置网站监控工具与告警系统"><meta property="og:title" content="私有环境网站监控系统建置 - Uptime-kuma"><meta property="og:description" content="透过Docker快速建置网站监控工具与告警系统"><meta property="og:type" content="article"><meta property="og:url" content="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/"><meta property="og:image" content="https://as183789043.github.io/images/Uptime_kuma_Logo.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-11-12T01:44:54+08:00"><meta property="article:modified_time" content="2023-11-12T01:44:54+08:00"><meta property="og:site_name" content="Rick's web site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://as183789043.github.io/images/Uptime_kuma_Logo.jpg"><meta name=twitter:title content="私有环境网站监控系统建置 - Uptime-kuma"><meta name=twitter:description content="透过Docker快速建置网站监控工具与告警系统"><meta name=application-name content="Rick's Web Site"><meta name=apple-mobile-web-app-title content="Rick's Web Site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=canonical href=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/><link rel=next href=https://as183789043.github.io/zh-cn/theme-document-sass-uptime-robot/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"私有环境网站监控系统建置 - Uptime-kuma","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-uptime_kuma\/"},"image":[{"@type":"ImageObject","url":"https:\/\/as183789043.github.io\/images\/Uptime_kuma_Logo.jpg","width":1024,"height":641}],"genre":"posts","keywords":"Docker, Line, System","wordcount":938,"url":"https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-uptime_kuma\/","datePublished":"2023-11-12T01:44:54+08:00","dateModified":"2023-11-12T01:44:54+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"RickHsu","logo":{"@type":"ImageObject","url":"https:\/\/as183789043.github.io\/images\/avatar.png","width":256,"height":256}},"author":{"@type":"Person","name":"Rick"},"description":"透过Docker快速建置网站监控工具与告警系统"}</script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css><script async src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-RZF9PR9XQG")</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div id=loader-wrapper><div id=loader><div class=spinner><div class=cube1></div><div class=cube2></div></div><div class=loading-text>載入中...</div></div><div class="loader-section section-left"></div><div class="loader-section section-right"></div></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title="Rick's Web Site">Rick's Web Site<span class=header-title-post><i class="fa-solid fa-seedling" style=color:#11e462></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/zh-cn/posts/>所有文章 </a><a class=menu-item href=/zh-cn/tags/>标签 </a><a class=menu-item href=/zh-cn/categories/>分类 </a><a class=menu-item href=/zh-cn/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
-<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
-</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i>
-</a><a href=javascript:void(0); class="menu-item language" title=选择语言><i class="fa fa-globe" aria-hidden=true></i>
-<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/theme-document-docker-uptime_kuma/>English</option><option value=/zh-cn/theme-document-docker-uptime_kuma/ selected>简体中文</option><option value=/zh-tw/theme-document-docker-uptime_kuma/>繁体中文</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title="Rick's Web Site">Rick's Web Site<span class=header-title-post><i class="fa-solid fa-seedling" style=color:#11e462></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
-<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
-<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/zh-cn/posts/ title>所有文章</a><a class=menu-item href=/zh-cn/tags/ title>标签</a><a class=menu-item href=/zh-cn/categories/ title>分类</a><a class=menu-item href=/zh-cn/about/ title>关于</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
-</a><a href=javascript:void(0); class=menu-item title=选择语言><i class="fa fa-globe fa-fw" aria-hidden=true></i>
-<select class=language-select onchange="location=this.value"><option value=/theme-document-docker-uptime_kuma/>English</option><option value=/zh-cn/theme-document-docker-uptime_kuma/ selected>简体中文</option><option value=/zh-tw/theme-document-docker-uptime_kuma/>繁体中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">私有环境网站监控系统建置 - Uptime-kuma</h1><h2 class=single-subtitle>快速建置网站监控工具与告警系统</h2><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/zh-cn/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Rick</a></span>&nbsp;<span class=post-category>收录于 <a href=/zh-cn/categories/system/><i class="far fa-folder fa-fw" aria-hidden=true></i>System</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-11-12>2023-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 938 字&nbsp;
-<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 2 分钟&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/images/Uptime_kuma_Logo.jpg data-srcset="/images/Uptime_kuma_Logo.jpg, /images/Uptime_kuma_Logo.jpg 1.5x, /images/Uptime_kuma_Logo.jpg 2x" data-sizes=auto alt=/images/Uptime_kuma_Logo.jpg title=透过Docker快速建置网站监控工具与告警系统 width=1024 height=641></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#为什么需要网站监控工具>为什么需要网站监控工具</a></li><li><a href=#uptime-kuma安装>Uptime-kuma安装</a><ul><li><a href=#连线ui介面>连线UI介面</a></li></ul></li><li><a href=#ui设定>UI设定</a></li><li><a href=#告警系统-line-notify-设定>告警系统 Line Notify 设定</a></li><li><a href=#模拟监控失败范例>模拟监控失败范例</a></li><li><a href=#结果>结果</a></li><li><a href=#参考资料>参考资料</a></li></ul></nav></div></div><div class=content id=content><h2 id=为什么需要网站监控工具>为什么需要网站监控工具</h2><p>在一般有部署网站的环境中，最重要的就是知道现在网站提供的服务有没有挂掉或是凭证有没有到期</p><p>而这些事情在过去都是透过编写脚本或程式来进行监控，对于没有技术背景的使用者来说，异常麻烦。尤其是监控写好了 还要能在出状况时进行通知 无疑是让合理的监控变得更麻烦</p><br><p>秉持着 复杂的事情先上网找现成工具没有再靠自己的想法。所以就有了今天的主角 Uptime-kuma</p><br><div class="details admonition info open"><div class="details-summary admonition-title"><i class="icon fas fa-info-circle fa-fw" aria-hidden=true></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>如果想在安装前先体验线上版介面和进行基础的设定可以参考下方连结</p><p><a href=https://demo.uptime.kuma.pet target=_blank rel="noopener noreffer">Demo 网站连结 10 分钟可用版</a></p></div></div></div><br>那么 我们就开始安装在自己环境中来体验无期限使用的效果吧<div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw" aria-hidden=true></i>安装前置需求<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><ul><li>需要一台有Docker 的环境 (安装方法如下)<ul><li>Windows<ol><li>以管理员身份运行 PowerShell 或 Windows 命令提示符 安装WSL 然后重启电脑</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-Powershell data-lang=Powershell><span class=line><span class=cl><span class=n>wsl</span> <span class=p>-</span><span class=n>-install</span>
-</span></span></code></pre></td></tr></table></div></div><ol start=2><li>下载Docker Desktop<br></li></ol></li><li>Ubuntu 复制贴上在Terminal 即可<div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt-get update
-</span></span><span class=line><span class=cl>sudo apt-get install <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>ca-certificates <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>curl <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>gnupg <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>lsb-release
-</span></span><span class=line><span class=cl>sudo mkdir -m <span class=m>0755</span> -p /etc/apt/keyrings
-</span></span><span class=line><span class=cl>curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class=p>|</span> sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span><span class=s2>&#34;deb [arch=</span><span class=k>$(</span>dpkg --print-architecture<span class=k>)</span><span class=s2> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-</span></span></span><span class=line><span class=cl><span class=s2></span><span class=k>$(</span>lsb_release -cs<span class=k>)</span><span class=s2> stable&#34;</span> <span class=p>|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
-</span></span><span class=line><span class=cl>sudo apt-get update
-</span></span><span class=line><span class=cl>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-</span></span><span class=line><span class=cl>sudo gpasswd -a <span class=nv>$USER</span> docker 
-</span></span><span class=line><span class=cl>newgrp docker
-</span></span></code></pre></td></tr></table></div></div></li></ul></li></ul></div></div></div><h2 id=uptime-kuma安装>Uptime-kuma安装</h2><p>进入Power Shell / Terminal 输入以下指令</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-docker data-lang=docker><span class=line><span class=cl>docker run -d --restart<span class=o>=</span>always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1<span class=err>
-</span></span></span></code></pre></td></tr></table></div></div><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw" aria-hidden=true></i>指令说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><ul><li>-d 会让容器在背景运行</li><li>-restart 开机启动docker自动启动监控</li><li>-p 内部的网路端口对应到外部(主机)的端口号</li><li>-v 资料储存位置 本机的当前目录新增uptime-kuma资料夹 同步容器的app/data 目录</li></ul></blockquote></div></div></div><h3 id=连线ui介面>连线UI介面</h3><div class="details admonition abstract open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ul fa-fw" aria-hidden=true></i>打开浏览器输入 <i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>如果想在安装前先体验线上版介面和进行基础的设定可以参考下方连结</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>http://localhost:3001
-</span></span></code></pre></td></tr></table></div></div><p>如果Ubuntu没有装桌面的话 可以参考以下方法</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>  ufw allow <span class=m>3001</span> <span class=c1>#打开对外防火墙</span>
-</span></span><span class=line><span class=cl>  ip  -a  <span class=c1>#找出当前主机的ip 再用外部连线进入</span>
-</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=ui设定>UI设定</h2><p>进入UI需要设定帐号密码<br><img class=lazyload src=/svg/loading.min.svg data-src=./setting.png data-srcset="./setting.png, ./setting.png 1.5x, ./setting.png 2x" data-sizes=auto alt=./setting.png title=UI></p><p>从最简单的网页监测开始<br><img class=lazyload src=/svg/loading.min.svg data-src=./monitor.png data-srcset="./monitor.png, ./monitor.png 1.5x, ./monitor.png 2x" data-sizes=auto alt=./monitor.png title=monitor><br>输入要监控的网址</p><p><img class=lazyload src=/svg/loading.min.svg data-src=./monitor_setting.png data-srcset="./monitor_setting.png, ./monitor_setting.png 1.5x, ./monitor_setting.png 2x" data-sizes=auto alt=./monitor_setting.png title=monitor_setting><br>如果有进阶需求 如查看凭证剩余天数也可以勾选<br><img class=lazyload src=/svg/loading.min.svg data-src=./ssl_check.png data-srcset="./ssl_check.png, ./ssl_check.png 1.5x, ./ssl_check.png 2x" data-sizes=auto alt=./ssl_check.png title=ssl_check></p><h2 id=告警系统-line-notify-设定>告警系统 Line Notify 设定</h2><p>可以设定不只一个通知<br><img class=lazyload src=/svg/loading.min.svg data-src=./notify.png data-srcset="./notify.png, ./notify.png 1.5x, ./notify.png 2x" data-sizes=auto alt=./notify.png title=notify><br>看到需要token 且下方有教学如何从哪里取的 点选下方红框中的网址
-<img class=lazyload src=/svg/loading.min.svg data-src=./token.png data-srcset="./token.png, ./token.png 1.5x, ./token.png 2x" data-sizes=auto alt=./token.png title=token><br>点选右上角<br><img class=lazyload src=/svg/loading.min.svg data-src=./line_login.png data-srcset="./line_login.png, ./line_login.png 1.5x, ./line_login.png 2x" data-sizes=auto alt=./line_login.png title=line_login><br>可选择用帐号还是qrcode登入<br><img class=lazyload src=/svg/loading.min.svg data-src=./line_login_2.png data-srcset="./line_login_2.png, ./line_login_2.png 1.5x, ./line_login_2.png 2x" data-sizes=auto alt=./line_login_2.png title=line_login_2><br>可选择notify如何发送通知可以是指针对本人或是在群组中发出 测试先用1对1看效果<br><img class=lazyload src=/svg/loading.min.svg data-src=./publish_token.png data-srcset="./publish_token.png, ./publish_token.png 1.5x, ./publish_token.png 2x" data-sizes=auto alt=./publish_token.png title=publish_token></p><p>登入后滑到最下方 点选发行权杖<br><img class=lazyload src=/svg/loading.min.svg data-src=./publish.png data-srcset="./publish.png, ./publish.png 1.5x, ./publish.png 2x" data-sizes=auto alt=./publish.png title=publish><br>取得token回填网页即可<br><img class=lazyload src=/svg/loading.min.svg data-src=./copy_token.png data-srcset="./copy_token.png, ./copy_token.png 1.5x, ./copy_token.png 2x" data-sizes=auto alt=./copy_token.png title=copy_token></p><h2 id=模拟监控失败范例>模拟监控失败范例</h2><p>Ping 的设定档如下 ping的类型和 模拟一个不存在的网址 再配上通知设定<br><img class=lazyload src=/svg/loading.min.svg data-src=./fail.png data-srcset="./fail.png, ./fail.png 1.5x, ./fail.png 2x" data-sizes=auto alt=./fail.png title=fail></p><h2 id=结果>结果</h2><p>可以看到网站的回应时间平均在0.2秒，回应率正常且凭证在58天后到期<br><img class=lazyload src=/svg/loading.min.svg data-src=./result1.png data-srcset="./result1.png, ./result1.png 1.5x, ./result1.png 2x" data-sizes=auto alt=./result1.png title=result1></p><p>如果失败会发出讯息<br><img class=lazyload src=/svg/loading.min.svg data-src=./notify.jpeg data-srcset="./notify.jpeg, ./notify.jpeg 1.5x, ./notify.jpeg 2x" data-sizes=auto alt=./notify.jpeg title=notify_error></p><h2 id=参考资料>参考资料</h2><p><a href=https://github.com/louislam/uptime-kuma target=_blank rel="noopener noreffer">官方Github</a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2023-11-12</span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/zh-cn/theme-document-docker-uptime_kuma/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/ data-title="私有环境网站监控系统建置 - Uptime-kuma" data-hashtags=Docker,Line,System><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/ data-hashtag=Docker><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/ data-title="私有环境网站监控系统建置 - Uptime-kuma"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/ data-title="私有环境网站监控系统建置 - Uptime-kuma"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/ data-title="私有环境网站监控系统建置 - Uptime-kuma" data-image=./images/Uptime_kuma_Logo.jpg><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/zh-cn/tags/docker/>Docker</a>,&nbsp;<a href=/zh-cn/tags/line/>Line</a>,&nbsp;<a href=/zh-cn/tags/system/>System</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/zh-cn/>主页</a></span></section></div><div class=post-nav><a href=/zh-cn/theme-document-sass-uptime-robot/ class=next rel=next title="免费线上网页监控服务 - UptimeRobot">免费线上网页监控服务 - UptimeRobot<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=disqus_thread class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://disqus.com/?ref_noscript>Disqus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css><script type=text/javascript src=https://comment-taiwan.disqus.com/embed.js defer></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验."},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},lightgallery:!0,search:{algoliaAppID:"3990F4O1T5",algoliaIndex:"index.zh-cn",algoliaSearchKey:"f3d11d4be2386305b9bbab78ba0e4d53",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript src=/js/custom.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-RZF9PR9XQG")</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG" async></script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title>私有环境网站监控系统建置 - Uptime-kuma - Rick&#39;s Web Site</title><meta name="Description" content="透过Docker快速建置网站监控工具与告警系统"><meta property="og:title" content="私有环境网站监控系统建置 - Uptime-kuma" />
+<meta property="og:description" content="透过Docker快速建置网站监控工具与告警系统" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" /><meta property="og:image" content="https://as183789043.github.io/images/Uptime_kuma_Logo.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-12T01:44:54+08:00" />
+<meta property="article:modified_time" content="2023-11-12T01:44:54+08:00" /><meta property="og:site_name" content="Rick&#39;s web site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://as183789043.github.io/images/Uptime_kuma_Logo.jpg"/>
+
+<meta name="twitter:title" content="私有环境网站监控系统建置 - Uptime-kuma"/>
+<meta name="twitter:description" content="透过Docker快速建置网站监控工具与告警系统"/>
+<meta name="application-name" content="Rick&#39;s Web Site">
+<meta name="apple-mobile-web-app-title" content="Rick&#39;s Web Site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" /><link rel="next" href="https://as183789043.github.io/zh-cn/theme-document-sass-uptime-robot/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "私有环境网站监控系统建置 - Uptime-kuma",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-uptime_kuma\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/as183789043.github.io\/images\/Uptime_kuma_Logo.jpg",
+                            "width":  1024 ,
+                            "height":  641 
+                        }],"genre": "posts","keywords": "Docker, Line, System","wordcount":  938 ,
+        "url": "https:\/\/as183789043.github.io\/zh-cn\/theme-document-docker-uptime_kuma\/","datePublished": "2023-11-12T01:44:54+08:00","dateModified": "2023-11-12T01:44:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "RickHsu","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/as183789043.github.io\/images\/avatar.png",
+                    "width":  256 ,
+                    "height":  256 
+                }},"author": {
+                "@type": "Person",
+                "name": "Rick"
+            },"description": "透过Docker快速建置网站监控工具与告警系统"
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RZF9PR9XQG');
+    </script>
+    
+
+</head>
+
+<body data-header-desktop="fixed"
+    data-header-mobile="auto"><script
+        type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+    <div id="mask"></div>
+    <div id="loader-wrapper">
+        <div id="loader">
+            <div class="spinner">
+                <div class="cube1"></div>
+                <div class="cube2"></div>
+            </div>
+            <div class="loading-text">載入中...</div>
+        </div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 所有文章 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><a class="menu-item" href="/zh-cn/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/theme-document-docker-uptime_kuma/">English</option><option value="/zh-cn/theme-document-docker-uptime_kuma/" selected>简体中文</option><option value="/zh-tw/theme-document-docker-uptime_kuma/">繁体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="Rick&#39;s Web Site">Rick&#39;s Web Site<span class="header-title-post"><i class="fa-solid fa-seedling" style="color: #11e462;"></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/" title="">所有文章</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a class="menu-item" href="/zh-cn/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/theme-document-docker-uptime_kuma/">English</option><option value="/zh-cn/theme-document-docker-uptime_kuma/" selected>简体中文</option><option value="/zh-tw/theme-document-docker-uptime_kuma/">繁体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">私有环境网站监控系统建置 - Uptime-kuma</h1><h2 class="single-subtitle">快速建置网站监控工具与告警系统</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/zh-cn/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Rick</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/system/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-12">2023-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 938 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Uptime_kuma_Logo.jpg"
+        data-srcset="/images/Uptime_kuma_Logo.jpg, /images/Uptime_kuma_Logo.jpg 1.5x, /images/Uptime_kuma_Logo.jpg 2x"
+        data-sizes="auto"
+        alt="/images/Uptime_kuma_Logo.jpg"
+        title="透过Docker快速建置网站监控工具与告警系统" width="1024" height="641" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么需要网站监控工具">为什么需要网站监控工具</a></li>
+    <li><a href="#uptime-kuma安装">Uptime-kuma安装</a>
+      <ul>
+        <li><a href="#连线ui介面">连线UI介面</a></li>
+      </ul>
+    </li>
+    <li><a href="#ui设定">UI设定</a></li>
+    <li><a href="#告警系统-line-notify-设定">告警系统 Line Notify 设定</a></li>
+    <li><a href="#模拟监控失败范例">模拟监控失败范例</a></li>
+    <li><a href="#结果">结果</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="为什么需要网站监控工具">为什么需要网站监控工具</h2>
+<p>在一般有部署网站的环境中，最重要的就是知道现在网站提供的服务有没有挂掉或是凭证有没有到期</p>
+<p>而这些事情在过去都是透过编写脚本或程式来进行监控，对于没有技术背景的使用者来说，异常麻烦。尤其是监控写好了 还要能在出状况时进行通知 无疑是让合理的监控变得更麻烦</p>
+ <br>
+<p>秉持着 复杂的事情先上网找现成工具没有再靠自己的想法。所以就有了今天的主角 Uptime-kuma</p>
+<br>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>如果想在安装前先体验线上版介面和进行基础的设定可以参考下方连结</p>
+<p><a href="https://demo.uptime.kuma.pet" target="_blank" rel="noopener noreffer ">Demo 网站连结 10 分钟可用版</a></p>
+</div>
+        </div>
+    </div>
+<br> 
+那么 我们就开始安装在自己环境中来体验无期限使用的效果吧  
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>安装前置需求<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>需要一台有Docker 的环境  (安装方法如下)
+<ul>
+<li>Windows
+<ol>
+<li>以管理员身份运行 PowerShell 或 Windows 命令提示符 安装WSL 然后重启电脑</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Powershell" data-lang="Powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>下载Docker Desktop
+<br></li>
+</ol>
+</li>
+<li>Ubuntu 复制贴上在Terminal 即可
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>ca-certificates <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>curl <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>gnupg <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>lsb-release
+</span></span><span class="line"><span class="cl">sudo mkdir -m <span class="m">0755</span> -p /etc/apt/keyrings
+</span></span><span class="line"><span class="cl">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">&#34;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+</span></span><span class="line"><span class="cl">sudo gpasswd -a <span class="nv">$USER</span> docker 
+</span></span><span class="line"><span class="cl">newgrp docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="uptime-kuma安装">Uptime-kuma安装</h2>
+<p>进入Power Shell / Terminal 输入以下指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl">docker run -d --restart<span class="o">=</span>always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>指令说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<ul>
+<li>-d 会让容器在背景运行</li>
+<li>-restart 开机启动docker自动启动监控</li>
+<li>-p 内部的网路端口对应到外部(主机)的端口号</li>
+<li>-v 资料储存位置 本机的当前目录新增uptime-kuma资料夹 同步容器的app/data 目录</li>
+</ul>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="连线ui介面">连线UI介面</h3>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>打开浏览器输入 <i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>如果想在安装前先体验线上版介面和进行基础的设定可以参考下方连结</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http://localhost:3001
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果Ubuntu没有装桌面的话 可以参考以下方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  ufw allow <span class="m">3001</span> <span class="c1">#打开对外防火墙</span>
+</span></span><span class="line"><span class="cl">  ip  -a  <span class="c1">#找出当前主机的ip 再用外部连线进入</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="ui设定">UI设定</h2>
+<p>进入UI需要设定帐号密码<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./setting.png"
+        data-srcset="./setting.png, ./setting.png 1.5x, ./setting.png 2x"
+        data-sizes="auto"
+        alt="./setting.png"
+        title="UI" /></p>
+<p>从最简单的网页监测开始 <br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./monitor.png"
+        data-srcset="./monitor.png, ./monitor.png 1.5x, ./monitor.png 2x"
+        data-sizes="auto"
+        alt="./monitor.png"
+        title="monitor" /><br>
+输入要监控的网址</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./monitor_setting.png"
+        data-srcset="./monitor_setting.png, ./monitor_setting.png 1.5x, ./monitor_setting.png 2x"
+        data-sizes="auto"
+        alt="./monitor_setting.png"
+        title="monitor_setting" /><br>
+如果有进阶需求 如查看凭证剩余天数也可以勾选 <br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./ssl_check.png"
+        data-srcset="./ssl_check.png, ./ssl_check.png 1.5x, ./ssl_check.png 2x"
+        data-sizes="auto"
+        alt="./ssl_check.png"
+        title="ssl_check" /></p>
+<h2 id="告警系统-line-notify-设定">告警系统 Line Notify 设定</h2>
+<p>可以设定不只一个通知<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./notify.png"
+        data-srcset="./notify.png, ./notify.png 1.5x, ./notify.png 2x"
+        data-sizes="auto"
+        alt="./notify.png"
+        title="notify" /><br>
+看到需要token 且下方有教学如何从哪里取的 点选下方红框中的网址
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./token.png"
+        data-srcset="./token.png, ./token.png 1.5x, ./token.png 2x"
+        data-sizes="auto"
+        alt="./token.png"
+        title="token" /><br>
+点选右上角<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./line_login.png"
+        data-srcset="./line_login.png, ./line_login.png 1.5x, ./line_login.png 2x"
+        data-sizes="auto"
+        alt="./line_login.png"
+        title="line_login" /><br>
+可选择用帐号还是qrcode登入<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./line_login_2.png"
+        data-srcset="./line_login_2.png, ./line_login_2.png 1.5x, ./line_login_2.png 2x"
+        data-sizes="auto"
+        alt="./line_login_2.png"
+        title="line_login_2" /><br>
+可选择notify如何发送通知可以是指针对本人或是在群组中发出  测试先用1对1看效果<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./publish_token.png"
+        data-srcset="./publish_token.png, ./publish_token.png 1.5x, ./publish_token.png 2x"
+        data-sizes="auto"
+        alt="./publish_token.png"
+        title="publish_token" /></p>
+<p>登入后滑到最下方 点选发行权杖<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./publish.png"
+        data-srcset="./publish.png, ./publish.png 1.5x, ./publish.png 2x"
+        data-sizes="auto"
+        alt="./publish.png"
+        title="publish" /><br>
+取得token回填网页即可<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./copy_token.png"
+        data-srcset="./copy_token.png, ./copy_token.png 1.5x, ./copy_token.png 2x"
+        data-sizes="auto"
+        alt="./copy_token.png"
+        title="copy_token" /></p>
+<h2 id="模拟监控失败范例">模拟监控失败范例</h2>
+<p>Ping 的设定档如下 ping的类型和 模拟一个不存在的网址 再配上通知设定<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./fail.png"
+        data-srcset="./fail.png, ./fail.png 1.5x, ./fail.png 2x"
+        data-sizes="auto"
+        alt="./fail.png"
+        title="fail" /></p>
+<h2 id="结果">结果</h2>
+<p>可以看到网站的回应时间平均在0.2秒，回应率正常且凭证在58天后到期<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./result1.png"
+        data-srcset="./result1.png, ./result1.png 1.5x, ./result1.png 2x"
+        data-sizes="auto"
+        alt="./result1.png"
+        title="result1" /></p>
+<p>如果失败会发出讯息<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./notify.jpeg"
+        data-srcset="./notify.jpeg, ./notify.jpeg 1.5x, ./notify.jpeg 2x"
+        data-sizes="auto"
+        alt="./notify.jpeg"
+        title="notify_error" /></p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://github.com/louislam/uptime-kuma" target="_blank" rel="noopener noreffer ">官方Github</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/zh-cn/theme-document-docker-uptime_kuma/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" data-title="私有环境网站监控系统建置 - Uptime-kuma" data-hashtags="Docker,Line,System"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" data-title="私有环境网站监控系统建置 - Uptime-kuma"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" data-title="私有环境网站监控系统建置 - Uptime-kuma"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://as183789043.github.io/zh-cn/theme-document-docker-uptime_kuma/" data-title="私有环境网站监控系统建置 - Uptime-kuma" data-image="./images/Uptime_kuma_Logo.jpg"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/zh-cn/tags/docker/">Docker</a>,&nbsp;<a href="/zh-cn/tags/line/">Line</a>,&nbsp;<a href="/zh-cn/tags/system/">System</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/zh-cn/theme-document-sass-uptime-robot/" class="next" rel="next" title="免费线上网页监控服务 - UptimeRobot">免费线上网页监控服务 - UptimeRobot<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript></div></article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"></div>
+        </div>
+    </footer></div>
+
+    <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+        </a>
+    </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script type="text/javascript" src="https://comment-taiwan.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"search":{"algoliaAppID":"3990F4O1T5","algoliaIndex":"index.zh-cn","algoliaSearchKey":"f3d11d4be2386305b9bbab78ba0e4d53","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-RZF9PR9XQG');
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-RZF9PR9XQG" async></script></body>
+
+</html>

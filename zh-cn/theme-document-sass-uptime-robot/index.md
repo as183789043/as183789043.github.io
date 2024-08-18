@@ -50,11 +50,11 @@ Monitor Timeout : 检查当下多久没回应判定异常 </br>
 {{< /admonition  >}} 
 
 ## 测试与结果
-设定完成可以透过测试来检查设定是否正确 
+设定完成可以透过测试来检查设定是否正确  
 ![test](./test.jpg)  
-
-回到信箱查看 服务正常，但时区异常
-![error_timezone](./error_timezone.jpg)
+ 
+回到信箱查看 服务正常，但时区异常   
+![error_timezone](./error_timezone.jpg) 
  
 更改时区设定 (测试后信件时区正常，仪表板仍为UTC+0)
 ![change-timezone](./change-timezone.jpg)
