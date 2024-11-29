@@ -9,13 +9,25 @@
 <br/>
 
 ## 關於部落格
-|   |   |
-|---|---|
-| <h2> 建立部落格動機: </h2> <br/> 作者的工作與電腦領域相關，持續學習新技術的同時、<br/>也致力於鞏固已有的知識以應對日益複雜的技術挑戰。<br/><br/>透過撰寫文章，我記錄了自己的成長過程， <br/> 並希望能夠為每位訪問網站的用戶提供有用的內容。 <br/> <br/> 對我來說，如果我的文章能對您有所幫助<br/>將是一項極大的榮幸 !  | <iframe style="border-radius:25px" src="https://open.spotify.com/embed/track/6zkiTqLpmNOeCRHVOTQk2T?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> |
+|                                                                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                                                    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <h2> 建立部落格動機: </h2> <br/> 作者的工作與電腦領域相關，持續學習新技術的同時、<br/>也致力於鞏固已有的知識以應對日益複雜的技術挑戰。<br/><br/>透過撰寫文章，我記錄了自己的成長過程， <br/> 並希望能夠為每位訪問網站的用戶提供有用的內容。 <br/> <br/> 對我來說，如果我的文章能對您有所幫助<br/>將是一項極大的榮幸 ! | <iframe style="border-radius:25px" src="https://open.spotify.com/embed/track/6zkiTqLpmNOeCRHVOTQk2T?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> |
 
 ## 經歷
 <ul class="timeline">
-     <!-- Item 1 -->
+    <li class=no>
+         <div class="direction-l">
+             <div class="flag-wrapper">
+                 <span class="hexa"></span>
+                 <span class="time-wrapper"><span class="time">2024.05-Now</span></span>
+             </div>
+             <div class="desc">
+                 <h2>計算機科學與技術碩士</h2>
+                 學校: 亞利桑那州立大學 <br>
+                 工作地點: 線上
+             </div>
+         </div>
+     </li>
      <li class=no>
          <div class="direction-r">
              <div class="flag-wrapper">
