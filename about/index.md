@@ -16,6 +16,19 @@
   
 ## Exeprience
 <ul class="timeline">
+     <li class=no>
+         <div class="direction-r">
+             <div class="flag-wrapper">
+                 <span class="hexa"></span>
+                 <span class="time-wrapper"><span class="time">2025.03-Now</span></span>
+             </div>
+             <div class="desc">
+                 <h2>Data Enginner</h2>
+                 公司: WebComm Technology <br>
+                 工作地點: Taipei - Songshan
+             </div>
+         </div>
+     </li>
     <li class=no>
          <div class="direction-l">
              <div class="flag-wrapper">
@@ -33,7 +46,7 @@
         <div class="direction-r">
             <div class="flag-wrapper">
                 <span class="hexa"></span>
-                <span class="time-wrapper"><span class="time">2022.11-Now</span></span>
+                <span class="time-wrapper"><span class="time">2022.11-2025.02</span></span>
             </div>
             <div class="desc">
                 <h2>AWS Cloud Engineer</h2>

@@ -17,6 +17,19 @@
 
 ## 经历
 <ul class="timeline">
+     <li class=no>
+         <div class="direction-r">
+             <div class="flag-wrapper">
+                 <span class="hexa"></span>
+                 <span class="time-wrapper"><span class="time">2025.03-Now</span></span>
+             </div>
+             <div class="desc">
+                 <h2>资料工程师</h2>
+                 公司: 伟康科技 <br>
+                 工作地點: 台北 - 松山
+             </div>
+         </div>
+     </li>
     <li class=no>
          <div class="direction-l">
              <div class="flag-wrapper">
@@ -34,7 +47,7 @@
         <div class="direction-r">
             <div class="flag-wrapper">
                 <span class="hexa"></span>
-                <span class="time-wrapper"><span class="time">2022.11-Now</span></span>
+                <span class="time-wrapper"><span class="time">2022.11-2025.02</span></span>
             </div>
             <div class="desc">
                 <h2>AWS 云端工程师</h2>
